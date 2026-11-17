@@ -1,0 +1,174 @@
+journal-header: "<yellow>Diário de mineração: {0} descobertas, {1}/{2} famílias de minérios."
+journal-line: "<yellow>{0}: {1} descobertas • nível {2}/{3} • próxima meta: {4}"
+journal-unlocked: "<yellow>Coleção desbloqueada: {0}, {1} descobertas (nível {2})."
+journal-collection: "<yellow>Meta de coleção desbloqueada: {0}/{1} famílias!"
+journal-goals: "<yellow>Metas de famílias: 3 / 6 / 10 • desbloqueadas: {0}/3. Metas cosméticas, sem recompensas em itens."
+journal-rules: "<yellow>Só conta a primeira extração bem-sucedida no sobrevivência em cada posição. Minérios colocados, movidos por pistões ou regenerados não contam."
+journal-complete: "concluído"
+# Português (Brasil) — UTF-8. Keep keys, placeholders and formatting tokens unchanged.
+denied: <red>Você não tem permissão para isso.
+status: '<gray>Mundos: {0}; regras: {1}; novos pedaços: {2}; blocos colocados: {3}.'
+reloaded: <green>Configuração verificada e recarregada.
+player-only: <red>Execute este comando em jogo.
+world-disabled: <red>Este mundo não está habilitado ou o pedaço não está carregado.
+preview: '<gold>Chunk {0}/{1}: remove {2} minérios, lugar {3} blocks. Para trás o mundo! Corra /vveins apply no mesmo pedaço
+  dentro 30 segundos.'
+preview-needed: <red>Corra /vveins preview first e ficar no mesmo pedaço.
+preview-material: '<gray>  {0}: <yellow>{1}</yellow> Blocos planejados'
+preview-material-more: <gray>  Mais {0} outros materiais.
+applied: '<green>Feito: {0} minérios removidos, {1} blocos colocados.'
+usage: <gray>/vveins status | reload | preview | apply | cancel
+cancelled: <gray>Visualização descartada. Nenhum bloco mudou.
+failed: <red>Isso falhou. Os detalhes estão no registro do servidor.
+reload-failed: '<red>Configuração inválida, as configurações anteriores permanecem ativas: {0}'
+no-preview: <gray>Não há nenhuma prévia aberta.
+preview-expired: <red>Previsão expirada (30 seconds). Corra /vveins preview De novo.
+regrowth-warning: "<gold>Cuidado: 80% deste veio foi minerado. Deixe pelo menos {0} bloco(s) de minério para ele crescer de novo. Restam: {1}."
+status-regrowth: '<gray>Recrescimento: {0} veias rastreadas, {1} delas renováveis ({2} blocos originais).'
+status-regrowth-off: <gray>Rebrota.
+status-prospecting: '<gray>Vara de observação: no botão direito com {0}, raio {1} blocos.'
+status-prospecting-off: '<gray>Vara de observação: desligada.'
+status-prospecting-hidden: '<gray>Escondido da vara: {0}.'
+prospect-header: '<gold>A haste treme (rádio {0} blocos):'
+prospect-line: <gray>  <yellow>{0}</yellow>{1} blocos, {2} - {3} no alcance
+prospect-none: '<gray>A haste fica imóvel: sem minérios dentro de {0} quarteirões.'
+prospect-cooldown: <red>A haste precisa de {0} s para se estabelecer.
+directions:
+  N: Norte
+  NE: Nordeste
+  E: Leste
+  SE: Sudeste
+  S: Sul
+  SW: Sudoeste
+  W: Oeste
+  NW: noroeste
+  up: Mais alto
+  down: Mais para baixo
+  level: Na sua altura
+  above: bem acima de você
+  below: bem abaixo de você
+ore-names:
+  coal: Carvão
+  iron: Ferro
+  copper: Cobre
+  gold: Ouro
+  redstone: Redstone
+  lapis: Lapis Lazuli
+  diamond: Diamante
+  emerald: Esmeralda
+  nether_gold: Ouro Nether
+  nether_quartz: Quartzo Nether
+  ancient_debris: Debris Antigos
+veinmine-regrowth: <gray>A mineração de veias deixou {0} blocos de minério de pé para que esta veia possa crescer de volta.
+veinmine-tool: <red>A mineração de veias parou depois {0} Sua picareta está quase quebrada.
+status-veinmine: '<gray>Mineração de veias: até {0} blocos, {1}.'
+status-veinmine-off: '<gray>Minagem de veias: desligada.'
+status-sneak: Esgueirar + minar um minério com uma picareta
+status-no-sneak: Um minério com picareta
+status-map: '<gray>Ore map: em (/veinmap e /vmenu, {0} Blocos acima e abaixo do jogador).'
+status-map-off: <gray>Fora.
+status-map-no-core: '<gray>Ore map: em, mas precisa Vystorm Core 0.64.0 ou mais novo.'
+status-claims: '<gray>Concessões de mineração: ativadas ({0} minutos, até {1} blocos por veio).'
+status-claims-off: '<gray>Concessões de mineração: desativadas.'
+status-deep: '<gray>Veios profundos: ativados (os blocos centrais exigem {0} jogadores a até {1} blocos, em Y {2} ou menos).'
+status-deep-off: '<gray>Veios profundos: desativados.'
+map-off: <red>O mapa de minério está desligado neste servidor.
+map-needs-core: <red>O mapa de minério precisa de Vystorm Core no servidor.
+map-cooldown: <red>O mapa pode ser refeito em {0} s.
+map-menu-title: Ore map
+map-menu-description: Que minérios estão nos pedaços ao seu redor
+map-title: Ore map - o norte está acima
+map-hint: <gray>Quer o quadro geral?
+map-button: '[Ore map]'
+map-button-hover: Mostre os minérios ao seu redor
+map-tile: '<yellow>{0}: {1}'
+map-here: '<green>Você está aqui <yellow>{0}: {1}'
+map-empty: <gray>Sem minérios
+map-here-empty: <green>Você está aqui <gray>Sem minérios
+map-unloaded: <dark_gray>Não carregado
+map-tile-line: '<gray>{0}: <white>{1}'
+map-tile-chunk: <dark_gray>Chunk {0}/{1}
+map-info: <gold>Ore map
+map-info-band: <gray>Conta minérios de Y {0} para Y {1}.
+map-info-north: <gray>Norte é para cima, você está no meio.
+map-info-click: <gray>Clique em um pedaço para sua direção em bate-papo.
+map-refresh: <aqua>Escaneie de novo
+map-refresh-hint: <gray>Recolhe de onde você está agora (a cada {0} s).
+map-filter: '<yellow>Mostrado: {0}'
+map-filter-all: Todos os minérios
+map-filter-hint: '<gray>Botão esquerdo: próximo minério, botão direito: anterior.'
+map-close: <red>Fechar
+map-none: Sem minérios
+map-chunk: '<gray>Chunk {0}/{1}: cerca de {2} blocos {3}. <yellow>{4}'
+map-chunk-here: '<gray>Seu pedaço: <yellow>{0}'
+map-chunk-unloaded: <gray>Aquele pedaço não está carregado, então não foi escaneado.
+veinmine-enabled: <green>Minagem de veias permitida para você. Esgueirando-se e requisitos de ferramentas ainda seguem as
+  configurações do servidor.
+veinmine-disabled: <gray>Minagem de veias incapacitada para você. Você agora é meu bloco individual.
+veinmine-server-off: <gray>A mineração está desligada neste servidor, sua preferência foi salva.
+veinmine-usage: <gray>/veinmine
+commands:
+  veinjournal:
+    aliases: []
+    usage: ""
+    name: veinjournal
+    description: "Ver descobertas de mineração e metas de coleção"
+  vveins:
+    description: 'Ore veias: status, recarga, visualização e aplicar o pedaço atual'
+    aliases: []
+    sub:
+      status:
+        name: status
+        aliases: []
+        description: Mundos, regras, pedaços gerados, crescimento, prospecção, mineração de veias e mapa de minério
+      reload:
+        name: reload
+        aliases: []
+        description: Verifique e recarregue config.yml (um arquivo inválido mantém as configurações antigas)
+      preview:
+        name: preview
+        aliases: []
+        description: Visualização regenerando os minérios do seu pedaço (válido por 30 segundos)
+      apply:
+        name: apply
+        aliases: []
+        description: Aplique a pré-visualização do seu pedaço - de volta ao mundo primeiro
+      cancel:
+        name: cancel
+        aliases: []
+        description: Descarte sua prévia sem mudar de bloco
+  veinmap:
+    description: Ore mapa dos pedaços ao seu redor
+    aliases: []
+  veinclaim:
+    description: "Ver ou liberar sua reivindicação"
+    aliases: []
+    sub:
+      release:
+        name: "release"
+        aliases: []
+        description: "Liberar a reivindicação"
+  veinmine:
+    description: Alterne sua preferência de mineração de veias
+    aliases: []
+safety-stopped: 'A mineração de veias parou após {0} blocos extras: {1} ao lado de minério em {2}, {3}, {4}. Faça a área segura
+  antes de tentar novamente.'
+safety-lava: lava
+safety-water: Água
+safety-falling: bloco caindo acima
+safety-unloaded: Descarregado pedaço vizinho
+status-safety-on: 'Segurança na mineração: ativada.'
+status-safety-off: 'Segurança de mineração: deficiente.'
+claim-made: "<green>⛏ Você reivindicou este veio: {0} bloco(s) de {1} por {2} minutos. /veinclaim release libera."
+claim-taken: "<red>Este veio está reivindicado por {0} por mais {1} minuto(s)."
+claim-blocked: "<red>⛏ Reivindicado por {0} – mais {1} minuto(s)."
+claim-disabled: "<gray>Reivindicações de mineração estão desligadas neste servidor."
+claim-released: "<green>Sua reivindicação foi liberada."
+claim-none: "<gray>Você não tem reivindicação agora."
+claim-status: "<gold>Sua reivindicação: {0} bloco(s) de {1}, mais {2} minuto(s). /veinclaim release libera."
+deep-needs: "<gold>⛏ O núcleo de um veio profundo exige {0} mineradores por perto – {1} aqui, faltam {2}."
+deep-shared: "<aqua>⛏ Veio profundo: +{0} XP para cada um dos {1} mineradores."
+map-panel-subtitle: "Selecione um chunk para ver seus minérios. A lista vai de norte a sul."
+map-panel-direction: "Mostrar direção no chat"
+map-panel-expired: "Esta varredura não está mais disponível. Faça outra."
+map-panel-filter: "Filtro de minério"

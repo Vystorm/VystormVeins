@@ -1,0 +1,174 @@
+journal-header: "<yellow>Дневник шахтёра: {0} находок, {1}/{2} видов руды."
+journal-line: "<yellow>{0}: {1} находок • уровень {2}/{3} • следующая цель: {4}"
+journal-unlocked: "<yellow>Коллекция открыта: {0}, {1} находок (уровень {2})."
+journal-collection: "<yellow>Цель коллекции достигнута: {0}/{1} видов руды!"
+journal-goals: "<yellow>Цели по видам: 3 / 6 / 10 • открыто: {0}/3. Только достижения, без наград предметами."
+journal-rules: "<yellow>Считается только первая успешная добыча в выживании на каждой позиции. Установленная, сдвинутая поршнем и восстановленная руда не считается."
+journal-complete: "завершено"
+# Русский — UTF-8. Keep keys, placeholders and formatting tokens unchanged.
+denied: <red>У вас нет на это разрешения.
+status: '<gray>Миры: {0}; правила: {1}; новые чанки: {2}; размещённые блоки: {3}.'
+reloaded: <green>Конфигурация проверена и перезагружена.
+player-only: <red>Запустите эту команду в игре.
+world-disabled: <red>Этот мир не включен или чанк не загружен.
+preview: '<gold>Чанк {0}/{1}: remove {2} руды, место {3} blocks. Поддержите мир! Беги /vveins apply В той же части внутри
+  30 секунды.'
+preview-needed: <red>Беги /vveins preview first Оставайтесь в одном чанке.
+preview-material: '<gray>  {0}: <yellow>{1}</yellow> планируемые блоки'
+preview-material-more: <gray>  Плюс {0} других материалов.
+applied: '<green>Сделано: удалено {0} руд, размещено {1} блок.'
+usage: <gray>/vveins status | reload | preview | apply | cancel
+cancelled: <gray>Превью отброшено. Блоки не изменились.
+failed: <red>Это провалилось. Подробности находятся в журнале сервера.
+reload-failed: '<red>Конфигурация недействительна, предыдущие настройки остаются активными: {0}'
+no-preview: <gray>Открытого предварительного просмотра нет.
+preview-expired: <red>Превью истекло (30 seconds). Беги /vveins preview снова.
+regrowth-warning: "<gold>Осторожно: 80% жилы выработано. Оставьте минимум {0} блок(ов) руды, чтобы она восстановилась. Осталось: {1}."
+status-regrowth: '<gray>Рост: на {0} вен отслеживается, {1} из них возобновляемые ({2} исходных блоков).'
+status-regrowth-off: '<gray>Рост: выключен.'
+status-prospecting: '<gray>Перспективный стержень: на (проникновение + правый клик с {0}, радиус {1} блоков).'
+status-prospecting-off: '<gray>Ищущий стержень: выключен.'
+status-prospecting-hidden: '<gray>Скрыто от стержня: {0}.'
+prospect-header: '<gold>Стержень дергается (радиус {0} блоков):'
+prospect-line: '<gray>  <yellow>{0}</yellow>: {1} блоков, {2} - {3} в диапазоне'
+prospect-none: '<gray>Стержень остается неподвижным: нет руд в пределах {0} блоков.'
+prospect-cooldown: <red>Для обустройства стержня требуется {0} с.
+directions:
+  N: север
+  NE: северо-восточный
+  E: восток
+  SE: юго-восточный
+  S: юг
+  SW: юго-западный
+  W: запад
+  NW: северо-западный
+  up: выше
+  down: дальше вниз
+  level: На высоте своего
+  above: Прямо над тобой
+  below: Прямо под тобой
+ore-names:
+  coal: уголь
+  iron: железо
+  copper: медь
+  gold: золото
+  redstone: Редстоун
+  lapis: Лазурит Лазурит
+  diamond: алмаз
+  emerald: Изумруд
+  nether_gold: Нижнее золото
+  nether_quartz: Нижний Кварц
+  ancient_debris: Древний мусор
+veinmine-regrowth: <gray>Добыча вены оставила {0} рудных блоков стоять, чтобы эта вена могла расти.
+veinmine-tool: '<red>Добыча вейнов прекратилась после {0} блоков: ваша кирка почти сломана.'
+status-veinmine: '<gray>Добыча вейнов: на (до {0} блоков, {1}).'
+status-veinmine-off: '<gray>Вайн Майнинг: прочь.'
+status-sneak: sneak + mine руда с киркой
+status-no-sneak: шахта руда с киркой
+status-map: '<gray>Карта руды: на (/veinmap и /vmenu, {0} блоки выше и ниже игрока).'
+status-map-off: '<gray>Карта руды: выключено.'
+status-map-no-core: '<gray>Карта руды: на, но она нуждается в Vystorm Core 0.64.0 или новее.'
+status-claims: '<gray>Заявки на жилу: включены ({0} мин., до {1} блоков на жилу).'
+status-claims-off: '<gray>Заявки на жилу: выключены.'
+status-deep: '<gray>Глубинные жилы: включены (центральным блокам нужны {0} игрока в радиусе {1} блоков, на Y {2} и ниже).'
+status-deep-off: '<gray>Глубинные жилы: выключены.'
+map-off: <red>Карта руды выключена на этом сервере.
+map-needs-core: <red>Карта руды требует Vystorm ядер на сервере.
+map-cooldown: <red>Карта руды может быть перерисована в {0} с.
+map-menu-title: Карта руды
+map-menu-description: Какие руды лежат в чанках вокруг вас
+map-title: Оре карта - север вверх
+map-hint: <gray>Хотите более широкую картину?
+map-button: '[Ore map]'
+map-button-hover: Покажите руды в чанках вокруг вас
+map-tile: '<yellow>{0}: {1}'
+map-here: '<green>Ты здесь - <yellow>{0}: {1}'
+map-empty: <gray>Нет руд
+map-here-empty: <green>Ты здесь - <gray>без руд
+map-unloaded: <dark_gray>Не загружается
+map-tile-line: '<gray>{0}: <white>{1}'
+map-tile-chunk: <dark_gray>Чанк {0}/{1}
+map-info: <gold>Карта руды
+map-info-band: <gray>Подсчитывает руды от Y {0} до Y {1}.
+map-info-north: <gray>Север наверху, ты посередине.
+map-info-click: <gray>Нажмите чанк для его направления в чате.
+map-refresh: <aqua>Сканировать снова
+map-refresh-hint: <gray>Сканирование с места, где вы стоите сейчас (каждые {0} с).
+map-filter: '<yellow>Выпущено: {0}'
+map-filter-all: все руды
+map-filter-hint: '<gray>Левый клик: следующая руда, правый клик: предыдущий.'
+map-close: <red>Закрыть
+map-none: без руд
+map-chunk: '<gray>Чанк {0}/{1}: около {2} блоков {3}. <yellow>{4}'
+map-chunk-here: '<gray>Твой чанк: <yellow>{0}'
+map-chunk-unloaded: <gray>Этот чанк не загружен, поэтому его не сканировали.
+veinmine-enabled: <green>Добыча полезных ископаемых включена для вас. Требования к подкрадыванию и инструментам по-прежнему
+  следуют настройкам сервера.
+veinmine-disabled: <gray>Вайн Майнинг отключен для вас. Теперь у вас есть отдельные блоки.
+veinmine-server-off: <gray>Добыча Vein в настоящее время отключена на этом сервере; ваши предпочтения сохранены.
+veinmine-usage: <gray>/veinmine
+commands:
+  veinjournal:
+    aliases: []
+    usage: ""
+    name: veinjournal
+    description: "Показать находки и цели коллекции"
+  vveins:
+    description: 'Ручные вены: статус, перезагрузка, предварительный просмотр и применение текущего чанка'
+    aliases: []
+    sub:
+      status:
+        name: status
+        aliases: []
+        description: Миры, правила, сгенерированные чанки, рост, поиск, добыча вен и карта руды
+      reload:
+        name: reload
+        aliases: []
+        description: Проверьте и перезагрузите config.yml (недействительный файл сохраняет старые настройки)
+      preview:
+        name: preview
+        aliases: []
+        description: Предварительный просмотр регенерации руд вашего чанка (действует в течение 30 секунд)
+      apply:
+        name: apply
+        aliases: []
+        description: Примените предварительный просмотр вашего чанка - сначала поддержите мир
+      cancel:
+        name: cancel
+        aliases: []
+        description: Откажитесь от предварительного просмотра без изменения блоков
+  veinmap:
+    description: Оре карта чанков вокруг вас
+    aliases: []
+  veinclaim:
+    description: "Показать или снять заявку на жилу"
+    aliases: []
+    sub:
+      release:
+        name: "release"
+        aliases: []
+        description: "Снять заявку"
+  veinmine:
+    description: Переключите свои предпочтения в майнинге вен (спасенные между сеансами)
+    aliases: []
+safety-stopped: 'Добыча вен прекратилась после {0} дополнительных блоков: {1} рядом с рудой на {2}, {3}, {4}. Сделайте этот
+  район безопасным, прежде чем пытаться снова.'
+safety-lava: лава
+safety-water: вода
+safety-falling: падающий блок выше
+safety-unloaded: незагруженный соседний чанк
+status-safety-on: 'Безопасность добычи: включено.'
+status-safety-off: 'Безопасность добычи: инвалиды.'
+claim-made: "<green>⛏ Вы застолбили эту жилу: {0} блок(ов) ({1}) на {2} мин. /veinclaim release снимает заявку."
+claim-taken: "<red>Эта жила застолблена игроком {0} ещё на {1} мин."
+claim-blocked: "<red>⛏ Застолблено: {0} – ещё {1} мин."
+claim-disabled: "<gray>Заявки на жилы на этом сервере отключены."
+claim-released: "<green>Ваша заявка снята."
+claim-none: "<gray>Сейчас у вас нет заявки."
+claim-status: "<gold>Ваша заявка: {0} блок(ов) ({1}), ещё {2} мин. /veinclaim release снимает её."
+deep-needs: "<gold>⛏ Для ядра глубинной жилы нужно {0} шахтёров рядом – здесь {1}, не хватает {2}."
+deep-shared: "<aqua>⛏ Глубинная жила: +{0} XP каждому из {1} шахтёров."
+map-panel-subtitle: "Выберите чанк, чтобы увидеть его руды. Список идёт с севера на юг."
+map-panel-direction: "Показать направление в чате"
+map-panel-expired: "Результаты сканирования больше недоступны. Повторите сканирование."
+map-panel-filter: "Фильтр руды"

@@ -1,0 +1,11 @@
+title: 'Vene'
+pages:
+  - title: 'Trovare minerali'
+    text: |
+      Tieni un frammento di ametista, accovacciati e fai clic destro: la bacchetta mostra i minerali vicini e una scia di particelle.
+  - title: 'Estrarre vene intere'
+    text: |
+      Accovacciato, scava un minerale con il piccone giusto: viene tutta la vena. Fortuna e usura funzionano normalmente.
+  - title: 'Mappa e diario'
+    text: |
+      /veinmap mostra i minerali nei chunk vicini. /veinjournal registra i tipi trovati.

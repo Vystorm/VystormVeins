@@ -1,0 +1,11 @@
+title: 'Veins'
+pages:
+  - title: 'Find ores'
+    text: |
+      Hold an amethyst shard, sneak and right-click: the prospecting rod lists the nearest ores with distance and direction and leaves a particle trail.
+  - title: 'Mine whole veins'
+    text: |
+      Sneak and mine an ore with a fitting pickaxe: the whole connected vein comes with it. Fortune, protection and tool wear work as usual.
+  - title: 'Ore map and journal'
+    text: |
+      /veinmap shows the ores in the chunks around you. /veinjournal tracks which ore types you have found.

@@ -1,0 +1,313 @@
+{
+  "version": 1,
+  "intro": {
+    "en": "Veins adds large ore deposits, a prospecting rod and vein mining. Ore changes only affect newly generated chunks.",
+    "de": "Veins bringt große Erzadern, eine Wünschelrute und Aderabbau. Erzänderungen wirken nur in neu erzeugten Chunks.",
+    "fr": "Veins ajoute de grands gisements, une baguette de prospection et le minage de filons. Les minerais ne changent que dans les nouveaux chunks.",
+    "it": "Veins aggiunge grandi giacimenti, una bacchetta da prospezione e l’estrazione di vene. I minerali cambiano solo nei nuovi chunk.",
+    "pt_br": "Veins adiciona grandes jazidas, uma varinha de prospecção e mineração de veios. Minérios mudam só em chunks novos.",
+    "ru": "Veins добавляет большие залежи, лозу и добычу жил. Руды меняются только в новых чанках.",
+    "zh_cn": "Veins 添加大型矿脉、探矿杖和连锁采矿。矿石更改仅影响新生成的区块。"
+  },
+  "questions": [
+    {
+      "id": "ores",
+      "text": {
+        "en": "What should happen to normal ore generation?",
+        "de": "Was soll mit der normalen Erzgenerierung passieren?",
+        "fr": "Que faire de la génération normale des minerais ?",
+        "it": "Cosa fare con la generazione normale dei minerali?",
+        "pt_br": "O que fazer com a geração normal de minérios?",
+        "ru": "Что делать с обычной генерацией руд?",
+        "zh_cn": "如何处理原版矿石生成？"
+      },
+      "type": "choice",
+      "recommended": "keep",
+      "options": [
+        {
+          "id": "keep",
+          "label": {
+            "en": "Keep it and add veins",
+            "de": "Behalten und Adern ergänzen",
+            "fr": "La garder et ajouter des filons",
+            "it": "Mantenerla e aggiungere vene",
+            "pt_br": "Manter e adicionar veios",
+            "ru": "Оставить и добавить жилы",
+            "zh_cn": "保留并添加矿脉"
+          },
+          "set": {
+            "config.yml:replace_natural.iron": false,
+            "config.yml:replace_natural.coal": false,
+            "config.yml:replace_natural.copper": false,
+            "config.yml:replace_natural.diamond": false
+          }
+        },
+        {
+          "id": "replace",
+          "label": {
+            "en": "Replace iron, coal, copper and diamond",
+            "de": "Eisen, Kohle, Kupfer und Diamant ersetzen",
+            "fr": "Remplacer fer, charbon, cuivre et diamant",
+            "it": "Sostituire ferro, carbone, rame e diamante",
+            "pt_br": "Substituir ferro, carvão, cobre e diamante",
+            "ru": "Заменить железо, уголь, медь и алмазы",
+            "zh_cn": "替换铁、煤、铜和钻石"
+          },
+          "set": {
+            "config.yml:replace_natural.iron": true,
+            "config.yml:replace_natural.coal": true,
+            "config.yml:replace_natural.copper": true,
+            "config.yml:replace_natural.diamond": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "veinmine",
+      "text": {
+        "en": "How should vein mining work?",
+        "de": "Wie soll der Aderabbau funktionieren?",
+        "fr": "Comment le minage de filons doit-il fonctionner ?",
+        "it": "Come deve funzionare l’estrazione di vene?",
+        "pt_br": "Como a mineração de veios deve funcionar?",
+        "ru": "Как должна работать добыча жил?",
+        "zh_cn": "连锁采矿如何工作？"
+      },
+      "type": "choice",
+      "recommended": "sneak",
+      "options": [
+        {
+          "id": "sneak",
+          "label": {
+            "en": "Only while sneaking",
+            "de": "Nur beim Schleichen",
+            "fr": "Seulement accroupi",
+            "it": "Solo da accovacciati",
+            "pt_br": "Só agachado",
+            "ru": "Только крадучись",
+            "zh_cn": "仅潜行时"
+          },
+          "set": {
+            "config.yml:vein-mining.enabled": true,
+            "config.yml:vein-mining.sneak": true
+          }
+        },
+        {
+          "id": "always",
+          "label": {
+            "en": "Always with a pickaxe",
+            "de": "Immer mit Spitzhacke",
+            "fr": "Toujours avec une pioche",
+            "it": "Sempre con il piccone",
+            "pt_br": "Sempre com picareta",
+            "ru": "Всегда киркой",
+            "zh_cn": "使用镐时始终生效"
+          },
+          "set": {
+            "config.yml:vein-mining.enabled": true,
+            "config.yml:vein-mining.sneak": false
+          }
+        },
+        {
+          "id": "off",
+          "label": {
+            "en": "Off",
+            "de": "Aus",
+            "fr": "Désactivé",
+            "it": "Disattivo",
+            "pt_br": "Desligado",
+            "ru": "Выкл.",
+            "zh_cn": "关闭"
+          },
+          "set": {
+            "config.yml:vein-mining.enabled": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "rod",
+      "text": {
+        "en": "Enable the prospecting rod?",
+        "de": "Wünschelrute aktivieren?",
+        "fr": "Activer la baguette de prospection ?",
+        "it": "Attivare la bacchetta da prospezione?",
+        "pt_br": "Ativar a varinha de prospecção?",
+        "ru": "Включить лозу?",
+        "zh_cn": "启用探矿杖？"
+      },
+      "type": "choice",
+      "recommended": "on",
+      "options": [
+        {
+          "id": "on",
+          "label": {
+            "en": "On",
+            "de": "An",
+            "fr": "Activé",
+            "it": "Attivo",
+            "pt_br": "Ligado",
+            "ru": "Вкл.",
+            "zh_cn": "开启"
+          },
+          "set": {
+            "config.yml:prospecting.enabled": true
+          }
+        },
+        {
+          "id": "off",
+          "label": {
+            "en": "Off",
+            "de": "Aus",
+            "fr": "Désactivé",
+            "it": "Disattivo",
+            "pt_br": "Desligado",
+            "ru": "Выкл.",
+            "zh_cn": "关闭"
+          },
+          "set": {
+            "config.yml:prospecting.enabled": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "regrowth",
+      "text": {
+        "en": "Should newly generated veins slowly grow back?",
+        "de": "Sollen neu erzeugte Adern langsam nachwachsen?",
+        "fr": "Les nouveaux filons doivent-ils repousser lentement ?",
+        "it": "Le nuove vene devono ricrescere lentamente?",
+        "pt_br": "Veios novos devem crescer aos poucos?",
+        "ru": "Должны ли новые жилы медленно восстанавливаться?",
+        "zh_cn": "新生成的矿脉是否缓慢再生？"
+      },
+      "type": "choice",
+      "recommended": "off",
+      "options": [
+        {
+          "id": "on",
+          "label": {
+            "en": "On",
+            "de": "An",
+            "fr": "Activé",
+            "it": "Attivo",
+            "pt_br": "Ligado",
+            "ru": "Вкл.",
+            "zh_cn": "开启"
+          },
+          "set": {
+            "config.yml:regrowth.enabled": true
+          }
+        },
+        {
+          "id": "off",
+          "label": {
+            "en": "Off",
+            "de": "Aus",
+            "fr": "Désactivé",
+            "it": "Disattivo",
+            "pt_br": "Desligado",
+            "ru": "Выкл.",
+            "zh_cn": "关闭"
+          },
+          "set": {
+            "config.yml:regrowth.enabled": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "claims",
+      "text": {
+        "en": "Let players claim an ore vein for 20 minutes with the prospecting rod?",
+        "de": "Spieler eine Erzader 20 Minuten lang mit der Wünschelrute beanspruchen lassen?",
+        "fr": "Permettre de revendiquer un filon 20 minutes avec la baguette ?",
+        "it": "Permettere di rivendicare una vena per 20 minuti con la bacchetta?",
+        "pt_br": "Permitir reivindicar um veio por 20 minutos com a vara?",
+        "ru": "Разрешить застолбить жилу на 20 минут лозой?",
+        "zh_cn": "允许玩家用探矿杖占有矿脉 20 分钟？"
+      },
+      "type": "choice",
+      "recommended": "on",
+      "options": [
+        {
+          "id": "on",
+          "label": {
+            "en": "On",
+            "de": "An",
+            "fr": "Activé",
+            "it": "Attivo",
+            "pt_br": "Ligado",
+            "ru": "Вкл.",
+            "zh_cn": "开启"
+          },
+          "set": {
+            "config.yml:claims.enabled": true
+          }
+        },
+        {
+          "id": "off",
+          "label": {
+            "en": "Off",
+            "de": "Aus",
+            "fr": "Désactivé",
+            "it": "Disattivo",
+            "pt_br": "Desligado",
+            "ru": "Выкл.",
+            "zh_cn": "关闭"
+          },
+          "set": {
+            "config.yml:claims.enabled": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "deep",
+      "text": {
+        "en": "Generate deep veins that need several miners together?",
+        "de": "Tiefen-Adern erzeugen, die mehrere Bergleute gemeinsam brauchen?",
+        "fr": "Générer des filons profonds qui demandent plusieurs mineurs ?",
+        "it": "Generare vene profonde che richiedono più minatori insieme?",
+        "pt_br": "Gerar veios profundos que exigem vários mineradores juntos?",
+        "ru": "Создавать глубинные жилы, для которых нужно несколько шахтёров?",
+        "zh_cn": "生成需要多名矿工合作的深层矿脉？"
+      },
+      "type": "choice",
+      "recommended": "on",
+      "options": [
+        {
+          "id": "on",
+          "label": {
+            "en": "On",
+            "de": "An",
+            "fr": "Activé",
+            "it": "Attivo",
+            "pt_br": "Ligado",
+            "ru": "Вкл.",
+            "zh_cn": "开启"
+          },
+          "set": {
+            "config.yml:deep-veins.enabled": true
+          }
+        },
+        {
+          "id": "off",
+          "label": {
+            "en": "Off",
+            "de": "Aus",
+            "fr": "Désactivé",
+            "it": "Disattivo",
+            "pt_br": "Desligado",
+            "ru": "Выкл.",
+            "zh_cn": "关闭"
+          },
+          "set": {
+            "config.yml:deep-veins.enabled": false
+          }
+        }
+      ]
+    }
+  ]
+}

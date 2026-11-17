@@ -1,0 +1,198 @@
+# VystormVeins – large ore deposits, prospecting rod, vein mining and ore map.
+# After editing: /vveins reload (or change values in /vadmin config VystormVeins).
+# replace_natural: true removes that vanilla ore family from new chunks; your own veins stay.
+# false keeps vanilla ores in addition. Missing entries count as false.
+worlds:
+- world
+replace_natural:
+  coal: false
+  iron: false
+  copper: false
+  gold: false
+  redstone: false
+  lapis: false
+  diamond: false
+  emerald: false
+  nether_gold: false
+  nether_quartz: false
+  ancient_debris: false
+deposits:
+  iron:
+    # Optional per-node overrides; absent keys inherit global regrowth defaults.
+    # regrowth:
+    #   enabled: true
+    #   interval-seconds: 60
+    #   warning-sound: true
+    #   warning-message: "80% mined! {remaining} left; leave at least {minimum}."
+    ore: minecraft:iron_ore
+    deep-ore: minecraft:deepslate_iron_ore
+    hosts:
+    - minecraft:stone
+    - minecraft:deepslate
+    - minecraft:tuff
+    biomes: []
+    min-y: -48
+    max-y: 96
+    attempts: 3
+    size: 40
+    chance: 0.75
+  coal:
+    # Optional per-node overrides; absent keys inherit global regrowth defaults.
+    # regrowth:
+    #   enabled: true
+    #   interval-seconds: 60
+    #   warning-sound: true
+    #   warning-message: "80% mined! {remaining} left; leave at least {minimum}."
+    ore: minecraft:coal_ore
+    deep-ore: minecraft:deepslate_coal_ore
+    hosts:
+    - minecraft:stone
+    - minecraft:deepslate
+    min-y: 0
+    max-y: 192
+    attempts: 3
+    size: 56
+    chance: 0.7
+  copper:
+    # Optional per-node overrides; absent keys inherit global regrowth defaults.
+    # regrowth:
+    #   enabled: true
+    #   interval-seconds: 60
+    #   warning-sound: true
+    #   warning-message: "80% mined! {remaining} left; leave at least {minimum}."
+    ore: minecraft:copper_ore
+    deep-ore: minecraft:deepslate_copper_ore
+    hosts:
+    - minecraft:stone
+    - minecraft:deepslate
+    min-y: -16
+    max-y: 96
+    attempts: 2
+    size: 48
+    chance: 0.65
+  diamond:
+    # Optional per-node overrides; absent keys inherit global regrowth defaults.
+    # regrowth:
+    #   enabled: true
+    #   interval-seconds: 60
+    #   warning-sound: true
+    #   warning-message: "80% mined! {remaining} left; leave at least {minimum}."
+    ore: minecraft:diamond_ore
+    deep-ore: minecraft:deepslate_diamond_ore
+    hosts:
+    - minecraft:stone
+    - minecraft:deepslate
+    min-y: -60
+    max-y: -16
+    attempts: 1
+    size: 12
+    chance: 0.22
+# Texts: plugins/VystormVeins/lang/en.yml and de.yml (with Vystorm Core: in each player's language).
+# Texts you changed under "messages:" or "ore-names:" in older versions keep working and win.
+# Optional renewable generated veins. Requires Vystorm Core 0.64.0 or newer.
+# Records only newly generated/applied veins while enabled; existing terrain is not scanned.
+# Keep at least ceil(original vein size * 10%) to regrow. Below this threshold the vein is exhausted.
+regrowth:
+  enabled: false
+  # Once per vein at 80% mined / 20% left: three vanilla bass sounds, 6 ticks apart.
+  # Never rearms, including after regrowth or restart.
+  warning-sound: true
+  # "default" uses the language files (each player's language). Empty string disables the chat line.
+  # Own text: placeholders {minimum}, {remaining}, {node}.
+  warning-message: default
+  # Each deposits.<node>.regrowth may override enabled, interval-seconds,
+  # warning-sound and warning-message. Missing keys inherit these global defaults.
+  # One block per vein per interval, only while its chunks are loaded. No offline catch-up.
+  interval-seconds: 60
+  # Hard cap on original tracked cells, including exhausted veins, to bound memory/state size.
+  max-tracked-blocks: 100000
+
+# Prospecting rod: sneak + right-click with the item shows the nearest ores around you with distance and direction,
+# a coloured particle trail to the closest one and an amethyst chime (higher when closer).
+# Permission vystormveins.prospect (default: everyone). Searches vanilla ores and ores from deposits, loaded chunks only.
+# Mining claims: right-click an ore with the prospecting rod (without sneaking) to claim the connected vein for a while.
+# Others cannot mine its blocks until the claim ends; you, your party and admins (vystormveins.claim.bypass) can.
+# One claim per player; a new claim replaces the old one. /veinclaim shows it, /veinclaim release frees it.
+# Claims are kept in memory and end with a restart. Permission vystormveins.claim (default: everyone).
+claims:
+  enabled: true
+  # How long a claim lasts (1-240 minutes).
+  minutes: 20
+  # Largest vein one claim covers (1-512 blocks).
+  max-blocks: 128
+  # Party members of the owner (Vystorm Core parties) may mine claimed blocks too.
+  allow-party: true
+
+# Deep veins: rare, large veins far down (an extra deposit in new chunks of the worlds above). Their core blocks can
+# only be mined while enough players are close together; every miner nearby gets the XP for each core block.
+# Placed core blocks are ordinary blocks. Creative players are not limited.
+deep-veins:
+  enabled: true
+  vein:
+    ore: minecraft:ancient_debris
+    hosts: [minecraft:deepslate, minecraft:tuff]
+    min-y: -64
+    max-y: -48
+    # About 24 blocks = 6 netherite ingots per vein.
+    size: 24
+    # Chance per chunk (0-1). Roughly 70-75 % of it really becomes a vein: the start block must be deepslate or tuff,
+    # not bedrock or a cave. 0.01 gives about 170 ancient debris per 1000 chunks (the Nether has about 1700).
+    chance: 0.01
+  # Blocks that count as the core of a deep vein (only at or below max-y).
+  core-blocks: [minecraft:ancient_debris]
+  max-y: -40
+  # Players needed within the radius, the breaker included (1-16).
+  players: 3
+  radius: 12
+  # XP every nearby miner gets per core block (0-1000).
+  xp-per-block: 15
+
+prospecting:
+  enabled: true
+  item: AMETHYST_SHARD
+  sneak: true
+  # 2 to 16 blocks
+  radius: 10
+  cooldown-seconds: 8
+  particles: true
+  # How many ore types one use lists (1 to 11)
+  max-lines: 3
+  # Ore types the rod never reports, e.g. [diamond, ancient_debris], so it is no x-ray for valuables.
+  # Vanilla names as in replace_natural or blocks from deposits. Default: none.
+  hidden-ores: [ancient_debris]
+
+# Vein mining: sneak + mine an ore with a fitting pickaxe to mine the whole connected vein (diagonals too, same ore).
+# Every block counts as normal mining: protection plugins, Fortune/Silk Touch, tool wear and XP work as usual.
+# Permission vystormveins.veinmine (default: everyone).
+vein-mining:
+  enabled: true
+  # Only while sneaking; false = every ore mined with a pickaxe takes the whole vein
+  sneak: true
+  # At most this many extra blocks per vein (1 to 128), never further than 16 blocks away
+  max-blocks: 32
+  # Leaves the required 10 % of regrowing veins standing so they do not run dry
+  respect-regrowth: true
+  # Stops before the pickaxe breaks
+  protect-tool: true
+  # Ore types without vein mining, e.g. [ancient_debris]; names as in replace_natural or blocks from deposits
+  excluded-ores: []
+  # Items and XP of the extra blocks drop where the first ore was mined instead of scattered through the cave
+  collect-drops: true
+
+# Ore map (needs Vystorm Core): /veinmap, /vmenu or the button below the rod opens a map of the 9 x 5 chunks
+# around the player with the ores in a height band around them. Loaded chunks only; prospecting.hidden-ores applies.
+# Permission vystormveins.map (default: everyone).
+ore-map:
+  enabled: true
+  # Blocks above and below the player that are counted (1 to 32)
+  depth: 8
+  # Waiting time between two scans per player
+  cooldown-seconds: 30
+
+# Stops automatic vein mining before opening liquids or dropping a falling block.
+# Existing configs receive enabled: false; enable and /vveins reload to opt in.
+mining-safety:
+  enabled: true
+  lava: true
+  water: false
+  falling-blocks: true

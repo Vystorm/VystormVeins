@@ -1,0 +1,113 @@
+# VystormVeins 1.1.0 – frequent-small
+# Vollstaendige Vorlage: als config.yml kopieren, Weltnamen pruefen, /vveins reload.
+# replace_natural: true entfernt nur diese Vanilla-Erzfamilie. Eigene Adern bleiben unveraendert.
+# false behaelt Vanilla-Erze zusaetzlich bei. Fehlende Eintraege gelten als false.
+worlds:
+- world
+replace_natural:
+  coal: false
+  iron: false
+  copper: false
+  gold: false
+  redstone: false
+  lapis: false
+  diamond: false
+  emerald: false
+  nether_gold: false
+  nether_quartz: false
+  ancient_debris: false
+deposits:
+  iron:
+    # Optional per-node overrides; absent keys inherit global regrowth defaults.
+    # regrowth:
+    #   enabled: true
+    #   interval-seconds: 60
+    #   warning-sound: true
+    #   warning-message: "80% abgebaut! Noch {remaining}; mindestens {minimum} stehen lassen."
+    ore: minecraft:iron_ore
+    deep-ore: minecraft:deepslate_iron_ore
+    hosts:
+    - minecraft:stone
+    - minecraft:deepslate
+    - minecraft:tuff
+    biomes: []
+    min-y: -48
+    max-y: 96
+    attempts: 8
+    size: 16
+    chance: 0.8
+  coal:
+    # Optional per-node overrides; absent keys inherit global regrowth defaults.
+    # regrowth:
+    #   enabled: true
+    #   interval-seconds: 60
+    #   warning-sound: true
+    #   warning-message: "80% abgebaut! Noch {remaining}; mindestens {minimum} stehen lassen."
+    ore: minecraft:coal_ore
+    deep-ore: minecraft:deepslate_coal_ore
+    hosts:
+    - minecraft:stone
+    - minecraft:deepslate
+    min-y: 0
+    max-y: 192
+    attempts: 8
+    size: 20
+    chance: 0.75
+  copper:
+    # Optional per-node overrides; absent keys inherit global regrowth defaults.
+    # regrowth:
+    #   enabled: true
+    #   interval-seconds: 60
+    #   warning-sound: true
+    #   warning-message: "80% abgebaut! Noch {remaining}; mindestens {minimum} stehen lassen."
+    ore: minecraft:copper_ore
+    deep-ore: minecraft:deepslate_copper_ore
+    hosts:
+    - minecraft:stone
+    - minecraft:deepslate
+    min-y: -16
+    max-y: 96
+    attempts: 6
+    size: 16
+    chance: 0.7
+  diamond:
+    # Optional per-node overrides; absent keys inherit global regrowth defaults.
+    # regrowth:
+    #   enabled: true
+    #   interval-seconds: 60
+    #   warning-sound: true
+    #   warning-message: "80% abgebaut! Noch {remaining}; mindestens {minimum} stehen lassen."
+    ore: minecraft:diamond_ore
+    deep-ore: minecraft:deepslate_diamond_ore
+    hosts:
+    - minecraft:stone
+    - minecraft:deepslate
+    min-y: -60
+    max-y: -16
+    attempts: 3
+    size: 5
+    chance: 0.25
+messages:
+  denied: Dafür fehlt dir die Berechtigung.
+  status: 'Welten: {0}; Regeln: {1}; neue Chunks: {2}; gesetzte Blöcke: {3}.'
+  reloaded: Konfiguration geprüft und neu geladen.
+  player-only: Diesen Befehl im Spiel ausführen.
+  world-disabled: Diese Welt ist nicht aktiviert oder der Chunk ist nicht geladen.
+  preview: 'Chunk {0}/{1}: {2} Erze entfernen, {3} Blöcke setzen. Welt sichern! Innerhalb
+    von 30 Sekunden /vveins apply im selben Chunk ausführen.'
+  preview-needed: Zuerst /vveins preview ausführen und im selben Chunk bleiben.
+  applied: 'Fertig: {0} Erze entfernt, {1} Blöcke gesetzt.'
+  usage: /vveins status | reload | preview | apply | cancel
+  cancelled: Vorschau verworfen. Keine Blöcke geändert.
+  failed: Vorgang fehlgeschlagen. Details stehen im Serverlog.
+  reload-failed: 'Konfiguration ungültig, bisherige Einstellungen bleiben aktiv: {0}'
+  no-preview: Keine offene Vorschau vorhanden.
+  preview-expired: Vorschau abgelaufen (30 Sekunden). Erneut /vveins preview ausführen.
+
+# Stops automatic vein mining before opening liquids or dropping a falling block.
+# Existing configs receive enabled: false; enable and /vveins reload to opt in.
+mining-safety:
+  enabled: true
+  lava: true
+  water: false
+  falling-blocks: true

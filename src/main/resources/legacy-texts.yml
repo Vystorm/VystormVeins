@@ -1,0 +1,51 @@
+messages:
+  denied: Dafür fehlt dir die Berechtigung.
+  status: 'Welten: {0}; Regeln: {1}; neue Chunks: {2}; gesetzte Blöcke: {3}.'
+  reloaded: Konfiguration geprüft und neu geladen.
+  player-only: Diesen Befehl im Spiel ausführen.
+  world-disabled: Diese Welt ist nicht aktiviert oder der Chunk ist nicht geladen.
+  preview: 'Chunk {0}/{1}: {2} Erze entfernen, {3} Blöcke setzen. Welt sichern! Innerhalb
+    von 30 Sekunden /vveins apply im selben Chunk ausführen.'
+  preview-needed: Zuerst /vveins preview ausführen und im selben Chunk bleiben.
+  applied: 'Fertig: {0} Erze entfernt, {1} Blöcke gesetzt.'
+  usage: /vveins status | reload | preview | apply | cancel
+  cancelled: Vorschau verworfen. Keine Blöcke geändert.
+  failed: Vorgang fehlgeschlagen. Details stehen im Serverlog.
+  reload-failed: 'Konfiguration ungültig, bisherige Einstellungen bleiben aktiv: {0}'
+  no-preview: Keine offene Vorschau vorhanden.
+  preview-expired: Vorschau abgelaufen (30 Sekunden). Erneut /vveins preview ausführen.
+  status-regrowth: 'Nachwachsen: aktiv – {0} Adern erfasst, davon {1} erneuerbar ({2} Originalblöcke).'
+  status-regrowth-off: 'Nachwachsen: aus.'
+  status-prospecting: 'Wünschelrute: aktiv (Schleichen + Rechtsklick mit {0}, Umkreis {1} Blöcke).'
+  status-prospecting-off: 'Wünschelrute: aus.'
+  prospect-header: 'Die Wünschelrute schlägt aus (Umkreis {0} Blöcke):'
+  prospect-line: '  {0}: {1} Blöcke, {2} – {3} Stück in Reichweite'
+  prospect-none: 'Die Wünschelrute bleibt ruhig: keine Erze im Umkreis von {0} Blöcken.'
+  prospect-cooldown: 'Die Wünschelrute muss sich noch {0} s beruhigen.'
+  directions:
+    N: nördlich
+    NE: nordöstlich
+    E: östlich
+    SE: südöstlich
+    S: südlich
+    SW: südwestlich
+    W: westlich
+    NW: nordwestlich
+    up: weiter oben
+    down: weiter unten
+    level: auf deiner Höhe
+    above: direkt über dir
+    below: direkt unter dir
+
+ore-names:
+  coal: Kohle
+  iron: Eisen
+  copper: Kupfer
+  gold: Gold
+  redstone: Redstone
+  lapis: Lapislazuli
+  diamond: Diamant
+  emerald: Smaragd
+  nether_gold: Nethergold
+  nether_quartz: Netherquarz
+  ancient_debris: Antiker Schutt

@@ -1,0 +1,47 @@
+plugins { id 'java' }
+group = 'at.esoren'
+version = '1.21.0'
+repositories {
+    mavenCentral()
+    maven { url = 'https://repo.papermc.io/repository/maven-public/' }
+}
+java { toolchain.languageVersion = JavaLanguageVersion.of(25) }
+configurations { compatibilityTestTools }
+dependencies {
+    compatibilityTestTools 'org.junit.jupiter:junit-jupiter:6.0.1'
+    compatibilityTestTools 'org.junit.platform:junit-platform-launcher:6.0.1'
+    compatibilityTestTools 'org.mockito:mockito-core:5.20.0'
+    compileOnly files(providers.gradleProperty('vystormCoreJar').getOrElse('libs/Vystorm_Core.jar'))
+    testImplementation files(providers.gradleProperty('vystormCoreJar').getOrElse('libs/Vystorm_Core.jar'))
+    compileOnly 'io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT'
+    testImplementation 'io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT'
+    testImplementation 'org.junit.jupiter:junit-jupiter:6.0.1'
+    testImplementation 'org.mockito:mockito-core:5.20.0'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:6.0.1'
+}
+tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8'; options.release = 21 }
+def paper1206Libraries = fileTree(providers.gradleProperty('paper1206Libraries').getOrElse(
+        (System.getProperty('user.home') + '/source/tools/smoke-1206/libraries'))) { include '**/*.jar' }
+tasks.register('compat1206', JavaCompile) {
+    description = 'Compiles main sources against the offline Paper 1.20.6 libraries.'
+    group = 'verification'
+    source = sourceSets.main.java
+    classpath = paper1206Libraries + files(providers.gradleProperty('vystormCoreJar').getOrElse('libs/Vystorm_Core.jar'))
+    destinationDirectory = layout.buildDirectory.dir('classes/java/compat1206')
+    javaCompiler = javaToolchains.compilerFor { languageVersion = JavaLanguageVersion.of(25) }
+}
+tasks.register('test1206', Test) {
+    description = 'Runs compatibility regressions using the shipped classes and the Paper 1.20.6 API.'
+    group = 'verification'
+    useJUnitPlatform()
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.output + sourceSets.main.output + configurations.compatibilityTestTools + paper1206Libraries
+    include '**/CompatibilityTest.class'
+}
+check { dependsOn tasks.named('compat1206'), tasks.named('test1206') }
+test {
+    useJUnitPlatform()
+    systemProperty 'veins.testLibraries', configurations.testRuntimeClasspath.asPath
+}
+processResources { inputs.property('version', project.version); filesMatching('plugin.yml') { expand(version: project.version) } }
+jar { from('LICENSE'); from('PROVENANCE.md') }

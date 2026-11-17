@@ -1,0 +1,176 @@
+journal-header: "<yellow>Mining journal: {0} discoveries, {1}/{2} ore families."
+journal-line: "<yellow>{0}: {1} discoveries • tier {2}/{3} • next goal: {4}"
+journal-unlocked: "<yellow>Collection unlocked: {0}, {1} discoveries (tier {2})."
+journal-collection: "<yellow>Collection goal unlocked: {0}/{1} ore families!"
+journal-goals: "<yellow>Family goals: 3 / 6 / 10 • unlocked: {0}/3. Cosmetic goals; no item rewards."
+journal-rules: "<yellow>Only first successful survival harvests at distinct positions count. Placed/piston-moved ore and repeat regrowth do not count."
+journal-complete: "complete"
+denied: "<red>You lack permission for this."
+status: "<gray>Worlds: {0}; rules: {1}; new chunks: {2}; blocks placed: {3}."
+reloaded: "<green>Configuration checked and reloaded."
+player-only: "<red>Run this command in game."
+world-disabled: "<red>This world is not enabled or the chunk is not loaded."
+preview: "<gold>Chunk {0}/{1}: remove {2} ores, place {3} blocks. Back up the world! Run /vveins apply in the same chunk within 30 seconds."
+preview-needed: "<red>Run /vveins preview first and stay in the same chunk."
+preview-material: "<gray>  {0}: <yellow>{1}</yellow> planned blocks"
+preview-material-more: "<gray>  Plus {0} other materials."
+applied: "<green>Done: {0} ores removed, {1} blocks placed."
+usage: "<gray>/vveins status | reload | preview | apply | cancel"
+cancelled: "<gray>Preview discarded. No blocks changed."
+failed: "<red>That failed. Details are in the server log."
+reload-failed: "<red>Configuration invalid, the previous settings stay active: {0}"
+no-preview: "<gray>There is no open preview."
+preview-expired: "<red>Preview expired (30 seconds). Run /vveins preview again."
+regrowth-warning: "<gold>Careful: 80% of this vein is mined. Leave at least {0} ore block(s) so it grows back. Left now: {1}."
+status-regrowth: "<gray>Regrowth: on – {0} veins tracked, {1} of them renewable ({2} original blocks)."
+status-regrowth-off: "<gray>Regrowth: off."
+status-prospecting: "<gray>Prospecting rod: on (sneak + right-click with {0}, radius {1} blocks)."
+status-prospecting-off: "<gray>Prospecting rod: off."
+status-prospecting-hidden: "<gray>Hidden from the rod: {0}."
+prospect-header: "<gold>The rod twitches (radius {0} blocks):"
+prospect-line: "<gray>  <yellow>{0}</yellow>: {1} blocks, {2} – {3} in range"
+prospect-none: "<gray>The rod stays still: no ores within {0} blocks."
+prospect-cooldown: "<red>The rod needs {0} s to settle."
+directions:
+  N: north
+  NE: north-east
+  E: east
+  SE: south-east
+  S: south
+  SW: south-west
+  W: west
+  NW: north-west
+  up: higher up
+  down: further down
+  level: at your height
+  above: right above you
+  below: right below you
+ore-names:
+  coal: Coal
+  iron: Iron
+  copper: Copper
+  gold: Gold
+  redstone: Redstone
+  lapis: Lapis Lazuli
+  diamond: Diamond
+  emerald: Emerald
+  nether_gold: Nether Gold
+  nether_quartz: Nether Quartz
+  ancient_debris: Ancient Debris
+veinmine-regrowth: "<gray>Vein mining left {0} ore block(s) standing so this vein can grow back."
+veinmine-tool: "<red>Vein mining stopped after {0} block(s): your pickaxe is almost broken."
+status-veinmine: "<gray>Vein mining: on (up to {0} blocks, {1})."
+status-veinmine-off: "<gray>Vein mining: off."
+status-sneak: "sneak + mine an ore with a pickaxe"
+status-no-sneak: "mine an ore with a pickaxe"
+status-map: "<gray>Ore map: on (/veinmap and /vmenu, {0} blocks above and below the player)."
+status-map-off: "<gray>Ore map: off."
+status-map-no-core: "<gray>Ore map: on, but it needs Vystorm Core 0.64.0 or newer."
+status-claims: "<gray>Mining claims: on ({0} minutes, up to {1} blocks per vein)."
+status-claims-off: "<gray>Mining claims: off."
+status-deep: "<gray>Deep veins: on (core blocks need {0} players within {1} blocks, at Y {2} or lower)."
+status-deep-off: "<gray>Deep veins: off."
+map-off: "<red>The ore map is switched off on this server."
+map-needs-core: "<red>The ore map needs Vystorm Core on the server."
+map-cooldown: "<red>The ore map can be redrawn in {0} s."
+map-menu-title: "Ore map"
+map-menu-description: "Which ores lie in the chunks around you"
+map-title: "Ore map - north is up"
+map-hint: "<gray>Want the bigger picture?"
+map-button: "[Ore map]"
+map-button-hover: "Show the ores in the chunks around you"
+map-tile: "<yellow>{0}: {1}"
+map-here: "<green>You are here – <yellow>{0}: {1}"
+map-empty: "<gray>No ores"
+map-here-empty: "<green>You are here – <gray>no ores"
+map-unloaded: "<dark_gray>Not loaded"
+map-tile-line: "<gray>{0}: <white>{1}"
+map-tile-chunk: "<dark_gray>Chunk {0}/{1}"
+map-info: "<gold>Ore map"
+map-info-band: "<gray>Counts ores from Y {0} to Y {1}."
+map-info-north: "<gray>North is up, you are in the middle."
+map-info-click: "<gray>Click a chunk for its direction in chat."
+map-refresh: "<aqua>Scan again"
+map-refresh-hint: "<gray>Rescans from where you stand now (every {0} s)."
+map-filter: "<yellow>Shown: {0}"
+map-filter-all: "all ores"
+map-filter-hint: "<gray>Left-click: next ore, right-click: previous."
+map-close: "<red>Close"
+map-none: "no ores"
+map-chunk: "<gray>Chunk {0}/{1}: about {2} blocks {3}. <yellow>{4}"
+map-chunk-here: "<gray>Your chunk: <yellow>{0}"
+map-chunk-unloaded: "<gray>That chunk is not loaded, so it was not scanned."
+
+# /vveins and /veinmap through Vystorm Core 0.64.0+: description, help and tab completion per player. "aliases" under
+# commands.<command> are extra root commands (server-wide, the admin chooses which languages: Core config
+# commands.localized-aliases); "name" and "aliases" of a subcommand are accepted in every language, English always works.
+veinmine-enabled: "<green>Vein mining enabled for you. Sneaking and tool requirements still follow the server settings."
+veinmine-disabled: "<gray>Vein mining disabled for you. You now mine individual blocks."
+veinmine-server-off: "<gray>Vein mining is currently switched off on this server; your preference has been saved."
+veinmine-usage: "<gray>/veinmine"
+
+commands:
+  veinjournal:
+    aliases: []
+    usage: ""
+    name: veinjournal
+    description: "Read personal mining discoveries and collection goals"
+  vveins:
+    description: "Ore veins: status, reload, preview and apply the current chunk"
+    aliases: []
+    sub:
+      status:
+        name: status
+        aliases: []
+        description: "Worlds, rules, generated chunks, regrowth, prospecting, vein mining and ore map"
+      reload:
+        name: reload
+        aliases: []
+        description: "Check and reload config.yml (an invalid file keeps the old settings)"
+      preview:
+        name: preview
+        aliases: []
+        description: "Preview regenerating the ores of your chunk (valid for 30 seconds)"
+      apply:
+        name: apply
+        aliases: []
+        description: "Apply the preview of your chunk – back up the world first"
+      cancel:
+        name: cancel
+        aliases: []
+        description: "Discard your preview without changing blocks"
+  veinmap:
+    description: "Ore map of the chunks around you"
+    aliases: []
+  veinclaim:
+    description: "Show or release your mining claim"
+    aliases: []
+    sub:
+      release:
+        name: "release"
+        aliases: []
+        description: "Release your claim"
+  veinmine:
+    description: "Toggle your vein mining preference (saved between sessions)"
+    aliases: []
+
+safety-stopped: 'Vein mining stopped after {0} extra blocks: {1} beside ore at {2}, {3}, {4}. Make the area safe before trying again.'
+safety-lava: 'lava'
+safety-water: 'water'
+safety-falling: 'falling block above'
+safety-unloaded: 'unloaded neighbouring chunk'
+status-safety-on: 'Mining safety: enabled.'
+status-safety-off: 'Mining safety: disabled.'
+claim-made: "<green>⛏ You claimed this vein: {0} block(s) of {1} for {2} minutes. /veinclaim release frees it."
+claim-taken: "<red>This vein is claimed by {0} for {1} more minute(s)."
+claim-blocked: "<red>⛏ Claimed by {0} – {1} more minute(s)."
+claim-disabled: "<gray>Mining claims are switched off on this server."
+claim-released: "<green>Your mining claim was released."
+claim-none: "<gray>You have no mining claim right now."
+claim-status: "<gold>Your claim: {0} block(s) of {1}, {2} more minute(s). /veinclaim release frees it."
+deep-needs: "<gold>⛏ A deep vein core needs {0} miners within reach – {1} here, {2} more needed."
+deep-shared: "<aqua>⛏ Deep vein: +{0} XP for each of {1} miners."
+map-panel-subtitle: "Select a chunk to see its ores. The list runs from north to south."
+map-panel-direction: "Show direction in chat"
+map-panel-expired: "This scan is no longer available. Scan again."
+map-panel-filter: "Ore filter"

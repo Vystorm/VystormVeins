@@ -1,0 +1,11 @@
+title: 'Filons'
+pages:
+  - title: 'Trouver des minerais'
+    text: |
+      Tenez un éclat d’améthyste, accroupissez-vous et faites un clic droit : la baguette montre les minerais proches et une traînée de particules.
+  - title: 'Miner des filons entiers'
+    text: |
+      Accroupi, minez un minerai avec la bonne pioche : tout le filon vient avec. Fortune et usure fonctionnent normalement.
+  - title: 'Carte et journal'
+    text: |
+      /veinmap montre les minerais des chunks autour de vous. /veinjournal suit les types trouvés.

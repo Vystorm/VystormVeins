@@ -1,0 +1,176 @@
+journal-header: "<yellow>Bergbaujournal: {0} Funde, {1}/{2} Erzarten."
+journal-line: "<yellow>{0}: {1} Funde • Stufe {2}/{3} • nächstes Ziel: {4}"
+journal-unlocked: "<yellow>Sammlung freigeschaltet: {0}, {1} Funde (Stufe {2})."
+journal-collection: "<yellow>Sammelziel erreicht: {0}/{1} Erzarten!"
+journal-goals: "<yellow>Erzarten-Ziele: 3 / 6 / 10 • erreicht: {0}/3. Rein kosmetisch, ohne Gegenstandsbelohnungen."
+journal-rules: "<yellow>Nur der erste erfolgreiche Abbau im Überlebensmodus je Fundstelle zählt. Platzierte oder verschobene Erze und erneutes Nachwachsen zählen nicht."
+journal-complete: "abgeschlossen"
+denied: "<red>Dafür fehlt dir die Berechtigung."
+status: "<gray>Welten: {0}; Regeln: {1}; neue Chunks: {2}; gesetzte Blöcke: {3}."
+reloaded: "<green>Konfiguration geprüft und neu geladen."
+player-only: "<red>Diesen Befehl im Spiel ausführen."
+world-disabled: "<red>Diese Welt ist nicht aktiviert oder der Chunk ist nicht geladen."
+preview: "<gold>Chunk {0}/{1}: {2} Erze entfernen, {3} Blöcke setzen. Welt sichern! Innerhalb von 30 Sekunden /vveins apply im selben Chunk ausführen."
+preview-needed: "<red>Zuerst /vveins preview ausführen und im selben Chunk bleiben."
+preview-material: "<gray>  {0}: <yellow>{1}</yellow> geplante Blöcke"
+preview-material-more: "<gray>  Dazu {0} weitere Materialien."
+applied: "<green>Fertig: {0} Erze entfernt, {1} Blöcke gesetzt."
+usage: "<gray>/vveins status | reload | preview | apply | cancel"
+cancelled: "<gray>Vorschau verworfen. Keine Blöcke geändert."
+failed: "<red>Vorgang fehlgeschlagen. Details stehen im Serverlog."
+reload-failed: "<red>Konfiguration ungültig, bisherige Einstellungen bleiben aktiv: {0}"
+no-preview: "<gray>Keine offene Vorschau vorhanden."
+preview-expired: "<red>Vorschau abgelaufen (30 Sekunden). Erneut /vveins preview ausführen."
+regrowth-warning: "<gold>Achtung: 80 % dieser Ader sind abgebaut. Lass mindestens {0} Erzblöcke stehen, damit sie nachwächst. Übrig: {1}."
+status-regrowth: "<gray>Nachwachsen: aktiv – {0} Adern erfasst, davon {1} erneuerbar ({2} Originalblöcke)."
+status-regrowth-off: "<gray>Nachwachsen: aus."
+status-prospecting: "<gray>Wünschelrute: aktiv (Schleichen + Rechtsklick mit {0}, Umkreis {1} Blöcke)."
+status-prospecting-off: "<gray>Wünschelrute: aus."
+status-prospecting-hidden: "<gray>Für die Wünschelrute ausgeblendet: {0}."
+prospect-header: "<gold>Die Wünschelrute schlägt aus (Umkreis {0} Blöcke):"
+prospect-line: "<gray>  <yellow>{0}</yellow>: {1} Blöcke, {2} – {3} Stück in Reichweite"
+prospect-none: "<gray>Die Wünschelrute bleibt ruhig: keine Erze im Umkreis von {0} Blöcken."
+prospect-cooldown: "<red>Die Wünschelrute muss sich noch {0} s beruhigen."
+directions:
+  N: nördlich
+  NE: nordöstlich
+  E: östlich
+  SE: südöstlich
+  S: südlich
+  SW: südwestlich
+  W: westlich
+  NW: nordwestlich
+  up: weiter oben
+  down: weiter unten
+  level: auf deiner Höhe
+  above: direkt über dir
+  below: direkt unter dir
+ore-names:
+  coal: Kohle
+  iron: Eisen
+  copper: Kupfer
+  gold: Gold
+  redstone: Redstone
+  lapis: Lapislazuli
+  diamond: Diamant
+  emerald: Smaragd
+  nether_gold: Nethergold
+  nether_quartz: Netherquarz
+  ancient_debris: Antiker Schutt
+veinmine-regrowth: "<gray>Der Aderabbau hat {0} Erzblock/Erzblöcke stehen lassen, damit diese Ader nachwachsen kann."
+veinmine-tool: "<red>Aderabbau nach {0} Block/Blöcken gestoppt: deine Spitzhacke ist fast kaputt."
+status-veinmine: "<gray>Aderabbau: aktiv (bis zu {0} Blöcke, {1})."
+status-veinmine-off: "<gray>Aderabbau: aus."
+status-sneak: "Schleichen + Erz mit Spitzhacke abbauen"
+status-no-sneak: "Erz mit Spitzhacke abbauen"
+status-map: "<gray>Erzkarte: aktiv (/veinmap und /vmenu, {0} Blöcke über und unter dem Spieler)."
+status-map-off: "<gray>Erzkarte: aus."
+status-map-no-core: "<gray>Erzkarte: aktiv, braucht aber Vystorm Core ab 0.22."
+status-claims: "<gray>Abbau-Claims: aktiv ({0} Minuten, bis zu {1} Blöcke pro Ader)."
+status-claims-off: "<gray>Abbau-Claims: aus."
+status-deep: "<gray>Tiefenadern: aktiv (Kernblöcke brauchen {0} Spieler im Umkreis von {1} Blöcken, ab Y {2} abwärts)."
+status-deep-off: "<gray>Tiefenadern: aus."
+map-off: "<red>Die Erzkarte ist auf diesem Server ausgeschaltet."
+map-needs-core: "<red>Die Erzkarte braucht Vystorm Core auf dem Server."
+map-cooldown: "<red>Die Erzkarte kann in {0} s neu gezeichnet werden."
+map-menu-title: "Erzkarte"
+map-menu-description: "Welche Erze in den Chunks um dich liegen"
+map-title: "Erzkarte - Norden ist oben"
+map-hint: "<gray>Lieber den Überblick?"
+map-button: "[Erzkarte]"
+map-button-hover: "Zeigt die Erze in den Chunks um dich herum"
+map-tile: "<yellow>{0}: {1}"
+map-here: "<green>Du bist hier – <yellow>{0}: {1}"
+map-empty: "<gray>Keine Erze"
+map-here-empty: "<green>Du bist hier – <gray>keine Erze"
+map-unloaded: "<dark_gray>Nicht geladen"
+map-tile-line: "<gray>{0}: <white>{1}"
+map-tile-chunk: "<dark_gray>Chunk {0}/{1}"
+map-info: "<gold>Erzkarte"
+map-info-band: "<gray>Zählt Erze von Y {0} bis Y {1}."
+map-info-north: "<gray>Norden ist oben, du stehst in der Mitte."
+map-info-click: "<gray>Klick auf einen Chunk zeigt seine Richtung im Chat."
+map-refresh: "<aqua>Neu scannen"
+map-refresh-hint: "<gray>Scannt neu von deinem jetzigen Standort (alle {0} s)."
+map-filter: "<yellow>Angezeigt: {0}"
+map-filter-all: "alle Erze"
+map-filter-hint: "<gray>Linksklick: nächstes Erz, Rechtsklick: vorheriges."
+map-close: "<red>Schließen"
+map-none: "keine Erze"
+map-chunk: "<gray>Chunk {0}/{1}: etwa {2} Blöcke {3}. <yellow>{4}"
+map-chunk-here: "<gray>Dein Chunk: <yellow>{0}"
+map-chunk-unloaded: "<gray>Dieser Chunk ist nicht geladen und wurde nicht gescannt."
+
+# /vveins und /veinmap über Vystorm Core 0.64.0+: Beschreibung, Hilfe und Tab-Vervollständigung je Spieler. "aliases"
+# unter commands.<befehl> sind zusätzliche Hauptbefehle (serverweit, der Admin wählt die Sprachen: Core-Konfig
+# commands.localized-aliases); "name" und "aliases" eines Unterbefehls werden in jeder Sprache verstanden, Englisch geht immer.
+veinmine-enabled: "<green>Aderabbau für dich eingeschaltet. Schleich- und Werkzeugvorgaben des Servers gelten weiterhin."
+veinmine-disabled: "<gray>Aderabbau für dich ausgeschaltet. Du baust jetzt einzelne Blöcke ab."
+veinmine-server-off: "<gray>Der Aderabbau ist auf diesem Server derzeit ausgeschaltet; deine Einstellung wurde gespeichert."
+veinmine-usage: "<gray>/veinmine"
+
+commands:
+  veinjournal:
+    aliases: [bergbaujournal]
+    usage: ""
+    name: bergbaujournal
+    description: "Persönliche Erzfundstatistik und Sammelziele lesen"
+  vveins:
+    description: "Erzadern: Status, neu laden, Vorschau und Anwenden im aktuellen Chunk"
+    aliases: [erzadern]
+    sub:
+      status:
+        name: status
+        aliases: [zustand]
+        description: "Welten, Regeln, erzeugte Chunks, Nachwachsen, Erzsuche, Aderabbau und Erzkarte"
+      reload:
+        name: neuladen
+        aliases: []
+        description: "config.yml prüfen und neu laden (eine ungültige Datei lässt die alten Einstellungen aktiv)"
+      preview:
+        name: vorschau
+        aliases: []
+        description: "Vorschau: Erze deines Chunks neu erzeugen (30 Sekunden gültig)"
+      apply:
+        name: anwenden
+        aliases: []
+        description: "Die Vorschau deines Chunks anwenden – vorher die Welt sichern"
+      cancel:
+        name: verwerfen
+        aliases: [abbrechen]
+        description: "Deine Vorschau verwerfen, ohne Blöcke zu ändern"
+  veinmap:
+    description: "Erzkarte der Chunks um dich herum"
+    aliases: []
+  veinclaim:
+    description: "Dein Schürfrecht anzeigen oder freigeben"
+    aliases: []
+    sub:
+      release:
+        name: "freigeben"
+        aliases: []
+        description: "Schürfrecht freigeben"
+  veinmine:
+    description: "Deinen Aderabbau umschalten (bleibt nach dem Ausloggen gespeichert)"
+    aliases: [aderabbau]
+
+safety-stopped: 'Aderabbau nach {0} zusätzlichen Blöcken gestoppt: {1} am Erz bei {2}, {3}, {4}. Sichere die Stelle vor dem nächsten Versuch.'
+safety-lava: 'Lava'
+safety-water: 'Wasser'
+safety-falling: 'Fallblock darüber'
+safety-unloaded: 'nicht geladener Nachbarchunk'
+status-safety-on: 'Gefahrenschutz: aktiviert.'
+status-safety-off: 'Gefahrenschutz: deaktiviert.'
+claim-made: "<green>⛏ Du hast diese Ader beansprucht: {0} Block/Blöcke {1} für {2} Minuten. /veinclaim release gibt sie frei."
+claim-taken: "<red>Diese Ader ist noch {1} Minute(n) von {0} beansprucht."
+claim-blocked: "<red>⛏ Beansprucht von {0} – noch {1} Minute(n)."
+claim-disabled: "<gray>Schürfrechte sind auf diesem Server ausgeschaltet."
+claim-released: "<green>Dein Schürfrecht wurde freigegeben."
+claim-none: "<gray>Du hast gerade kein Schürfrecht."
+claim-status: "<gold>Dein Schürfrecht: {0} Block/Blöcke {1}, noch {2} Minute(n). /veinclaim release gibt es frei."
+deep-needs: "<gold>⛏ Ein Tiefen-Ader-Kern braucht {0} Bergleute in der Nähe – {1} hier, noch {2} nötig."
+deep-shared: "<aqua>⛏ Tiefen-Ader: +{0} XP für jeden der {1} Bergleute."
+map-panel-subtitle: "Wähle einen Chunk, um seine Erze zu sehen. Die Liste verläuft von Norden nach Süden."
+map-panel-direction: "Richtung im Chat anzeigen"
+map-panel-expired: "Dieser Scan ist nicht mehr verfügbar. Scanne erneut."
+map-panel-filter: "Erzfilter"

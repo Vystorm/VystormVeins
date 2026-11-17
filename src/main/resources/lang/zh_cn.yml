@@ -1,0 +1,176 @@
+journal-header: "<yellow>采矿日志：{0} 次发现，{1}/{2} 种矿石。"
+journal-line: "<yellow>{0}：{1} 次发现 • 等级 {2}/{3} • 下个目标：{4}"
+journal-unlocked: "<yellow>已解锁收藏：{0}，{1} 次发现（等级 {2}）。"
+journal-collection: "<yellow>已达成收藏目标：{0}/{1} 种矿石！"
+journal-goals: "<yellow>矿石种类目标：3 / 6 / 10 • 已解锁：{0}/3。仅为收藏成就，不奖励物品。"
+journal-rules: "<yellow>每个位置仅计算首次成功的生存模式开采。放置、活塞移动或再次生长的矿石不计入。"
+journal-complete: "已完成"
+denied: "<red>你没有权限执行此操作。"
+status: "<gray>世界：{0}；规则：{1}；新区块：{2}；已放置方块：{3}。"
+reloaded: "<green>配置已检查并重新加载。"
+player-only: "<red>请在游戏内执行此命令。"
+world-disabled: "<red>此世界未启用，或该区块未加载。"
+preview: "<gold>区块 {0}/{1}：将移除 {2} 个矿石，放置 {3} 个方块。请先备份世界！请在 30 秒内于同一区块执行 /vveins apply。"
+preview-needed: "<red>请先执行 /vveins preview，并留在同一区块内。"
+preview-material: "<gray>  {0}：计划放置 <yellow>{1}</yellow> 个方块"
+preview-material-more: "<gray>  另有 {0} 种材料。"
+applied: "<green>完成：已移除 {0} 个矿石，放置 {1} 个方块。"
+usage: "<gray>/vveins status | reload | preview | apply | cancel"
+cancelled: "<gray>预览已放弃，没有方块被更改。"
+failed: "<red>操作失败，详情见服务器日志。"
+reload-failed: "<red>配置无效，继续使用之前的设置：{0}"
+no-preview: "<gray>当前没有待确认的预览。"
+preview-expired: "<red>预览已过期（30 秒）。请重新执行 /vveins preview。"
+regrowth-warning: "<gold>注意：此矿脉已开采 80%。请至少保留 {0} 个矿石方块以便再生。当前剩余：{1}。"
+status-regrowth: "<gray>矿脉再生：开启 – 正在追踪 {0} 条矿脉，其中 {1} 条可再生（原有 {2} 个方块）。"
+status-regrowth-off: "<gray>矿脉再生：关闭。"
+status-prospecting: "<gray>探矿杖：开启（手持 {0} 潜行 + 右键，半径 {1} 格）。"
+status-prospecting-off: "<gray>探矿杖：关闭。"
+status-prospecting-hidden: "<gray>探矿杖不显示：{0}。"
+prospect-header: "<gold>探矿杖颤动了（半径 {0} 格）："
+prospect-line: "<gray>  <yellow>{0}</yellow>：{1} 格，{2} – 范围内共 {3} 个"
+prospect-none: "<gray>探矿杖毫无动静：{0} 格内没有矿石。"
+prospect-cooldown: "<red>探矿杖需要 {0} 秒才能平静下来。"
+directions:
+  N: 北方
+  NE: 东北方
+  E: 东方
+  SE: 东南方
+  S: 南方
+  SW: 西南方
+  W: 西方
+  NW: 西北方
+  up: 更高处
+  down: 更深处
+  level: 与你同高
+  above: 就在你正上方
+  below: 就在你正下方
+ore-names:
+  coal: 煤
+  iron: 铁
+  copper: 铜
+  gold: 金
+  redstone: 红石
+  lapis: 青金石
+  diamond: 钻石
+  emerald: 绿宝石
+  nether_gold: 下界金
+  nether_quartz: 下界石英
+  ancient_debris: 远古残骸
+veinmine-regrowth: "<gray>连锁挖矿保留了 {0} 个矿石方块，让这条矿脉可以再生。"
+veinmine-tool: "<red>连锁挖矿在 {0} 个方块后停止：你的镐快要损坏了。"
+status-veinmine: "<gray>连锁挖矿：开启（最多 {0} 个方块，{1}）。"
+status-veinmine-off: "<gray>连锁挖矿：关闭。"
+status-sneak: "潜行并用镐挖掘矿石"
+status-no-sneak: "用镐挖掘矿石"
+status-map: "<gray>矿石地图：开启（/veinmap 和 /vmenu，玩家上下各 {0} 格）。"
+status-map-off: "<gray>矿石地图：关闭。"
+status-map-no-core: "<gray>矿石地图：开启，但需要 Vystorm Core 0.64.0 或更高版本。"
+status-claims: "<gray>矿脉认领：开启（{0} 分钟，每条矿脉最多 {1} 个方块）。"
+status-claims-off: "<gray>矿脉认领：关闭。"
+status-deep: "<gray>深层矿脉：开启（核心方块需要 {0} 名玩家在 {1} 格内，位于 Y {2} 及以下）。"
+status-deep-off: "<gray>深层矿脉：关闭。"
+map-off: "<red>本服务器已关闭矿石地图。"
+map-needs-core: "<red>矿石地图需要服务器安装 Vystorm Core。"
+map-cooldown: "<red>矿石地图可在 {0} 秒后重新绘制。"
+map-menu-title: "矿石地图"
+map-menu-description: "你周围的区块里有哪些矿石"
+map-title: "矿石地图 - 上方为北"
+map-hint: "<gray>想看更大范围？"
+map-button: "[矿石地图]"
+map-button-hover: "显示你周围区块中的矿石"
+map-tile: "<yellow>{0}：{1}"
+map-here: "<green>你在这里 – <yellow>{0}：{1}"
+map-empty: "<gray>没有矿石"
+map-here-empty: "<green>你在这里 – <gray>没有矿石"
+map-unloaded: "<dark_gray>未加载"
+map-tile-line: "<gray>{0}：<white>{1}"
+map-tile-chunk: "<dark_gray>区块 {0}/{1}"
+map-info: "<gold>矿石地图"
+map-info-band: "<gray>统计 Y {0} 到 Y {1} 之间的矿石。"
+map-info-north: "<gray>上方为北，你位于中间。"
+map-info-click: "<gray>点击区块，在聊天栏查看其方向。"
+map-refresh: "<aqua>重新扫描"
+map-refresh-hint: "<gray>从你当前位置重新扫描（每 {0} 秒一次）。"
+map-filter: "<yellow>显示：{0}"
+map-filter-all: "所有矿石"
+map-filter-hint: "<gray>左键：下一种矿石，右键：上一种。"
+map-close: "<red>关闭"
+map-none: "没有矿石"
+map-chunk: "<gray>区块 {0}/{1}：约 {2} 格，{3}。<yellow>{4}"
+map-chunk-here: "<gray>你所在的区块：<yellow>{0}"
+map-chunk-unloaded: "<gray>该区块未加载，因此未扫描。"
+
+# 通过 Vystorm Core 0.64.0+ 提供的 /vveins 和 /veinmap：每位玩家看到自己语言的说明、帮助和 Tab 补全。commands.<命令> 下的
+# "aliases" 是额外的主命令（全服生效，由管理员在 Core 配置 commands.localized-aliases 中选择语言）；子命令的 "name" 和
+# "aliases" 在所有语言中都可使用，英文始终有效。
+veinmine-enabled: "<green>已为你启用连锁采矿。潜行和工具要求仍遵循服务器设置。"
+veinmine-disabled: "<gray>已为你禁用连锁采矿。现在只会开采单个方块。"
+veinmine-server-off: "<gray>此服务器目前已关闭连锁采矿；你的偏好已保存。"
+veinmine-usage: "<gray>/veinmine"
+
+commands:
+  veinjournal:
+    aliases: [采矿日志]
+    usage: ""
+    name: 采矿日志
+    description: "查看个人采矿发现和收藏目标"
+  vveins:
+    description: "矿脉：状态、重载、预览并应用当前区块"
+    aliases: [矿脉]
+    sub:
+      status:
+        name: 状态
+        aliases: []
+        description: "世界、规则、已生成区块、再生、探矿、连锁采矿和矿石地图"
+      reload:
+        name: 重载
+        aliases: []
+        description: "检查并重新加载 config.yml（文件无效时保留旧设置）"
+      preview:
+        name: 预览
+        aliases: []
+        description: "预览重新生成你所在区块的矿石（30 秒内有效）"
+      apply:
+        name: 应用
+        aliases: []
+        description: "应用你所在区块的预览——请先备份世界"
+      cancel:
+        name: 取消
+        aliases: []
+        description: "放弃预览，不改变任何方块"
+  veinmap:
+    description: "你周围区块的矿石地图"
+    aliases: [矿石地图]
+  veinclaim:
+    description: "查看或释放你的采矿占有"
+    aliases: []
+    sub:
+      release:
+        name: "释放"
+        aliases: []
+        description: "释放占有"
+  veinmine:
+    description: "切换你的连锁采矿偏好（退出后保留）"
+    aliases: [连锁采矿]
+
+safety-stopped: '连锁采矿在额外开采 {0} 个方块后停止：矿石（{2}, {3}, {4}）旁有{1}。请先排除危险再重试。'
+safety-lava: '熔岩'
+safety-water: '水'
+safety-falling: '上方的下落方块'
+safety-unloaded: '未加载的相邻区块'
+status-safety-on: '采矿安全保护：已启用。'
+status-safety-off: '采矿安全保护：已禁用。'
+claim-made: "<green>⛏ 你已占有这条矿脉：{1} {0} 块，持续 {2} 分钟。/veinclaim release 可释放。"
+claim-taken: "<red>这条矿脉已被 {0} 占有，还剩 {1} 分钟。"
+claim-blocked: "<red>⛏ 已被 {0} 占有——还剩 {1} 分钟。"
+claim-disabled: "<gray>本服务器已关闭采矿占有。"
+claim-released: "<green>你的采矿占有已释放。"
+claim-none: "<gray>你目前没有采矿占有。"
+claim-status: "<gold>你的占有：{1} {0} 块，还剩 {2} 分钟。/veinclaim release 可释放。"
+deep-needs: "<gold>⛏ 深层矿脉核心需要附近有 {0} 名矿工 —— 现有 {1} 名，还差 {2} 名。"
+deep-shared: "<aqua>⛏ 深层矿脉：{1} 名矿工每人 +{0} 经验。"
+map-panel-subtitle: "选择一个区块查看矿石。列表按从北到南的顺序排列。"
+map-panel-direction: "在聊天中显示方向"
+map-panel-expired: "此次扫描结果已失效，请重新扫描。"
+map-panel-filter: "矿石筛选"

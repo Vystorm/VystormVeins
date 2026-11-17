@@ -1,0 +1,11 @@
+title: 'Erzadern'
+pages:
+  - title: 'Erze finden'
+    text: |
+      Halte einen Amethystsplitter, schleiche und mach Rechtsklick: Die Wünschelrute zeigt die nächsten Erze mit Entfernung und Richtung und hinterlässt eine Partikelspur.
+  - title: 'Ganze Adern abbauen'
+    text: |
+      Schleiche und baue ein Erz mit passender Spitzhacke ab: Die ganze zusammenhängende Ader kommt mit. Glück, Schutz und Werkzeugabnutzung wirken wie gewohnt.
+  - title: 'Erzkarte und Journal'
+    text: |
+      /veinmap zeigt die Erze in den Chunks um dich herum. /veinjournal hält fest, welche Erzarten du gefunden hast.

@@ -1,0 +1,52 @@
+name: VystormVeins
+version: '${version}'
+main: at.esoren.vystormveins.VeinsPlugin
+api-version: '1.20.6'
+load: STARTUP
+softdepend: [vystorm_core]
+libraries:
+  - net.kyori:adventure-api:4.26.1
+  - net.kyori:adventure-text-minimessage:4.26.1
+  - net.kyori:adventure-text-serializer-legacy:4.26.1
+  - net.kyori:adventure-text-serializer-gson:4.26.1
+author: Esoren
+description: Independent configurable deposit generation for Paper and Purpur.
+commands:
+  veinjournal:
+    description: Read your personal discoveries and ore collection goals.
+    permission: vystormveins.journal
+  vveins:
+    description: Inspect generation or preview/apply the current chunk.
+    permission: vystormveins.admin
+  veinmap:
+    description: Open the ore map of the chunks around you.
+    aliases: [oremap, erzkarte]
+    permission: vystormveins.map
+  veinmine:
+    description: Toggle your personal vein mining preference.
+    permission: vystormveins.veinmine
+  veinclaim:
+    description: Show or release your mining claim.
+    aliases: [schuerfrecht]
+    permission: vystormveins.claim
+permissions:
+  vystormveins.journal:
+    description: Record natural ore discoveries and read your personal mining journal.
+    default: true
+  vystormveins.admin:
+    default: op
+  vystormveins.prospect:
+    description: Use the prospecting rod (sneak + right-click with the configured item).
+    default: true
+  vystormveins.veinmine:
+    description: Mine a whole ore vein at once (sneak + break an ore with a pickaxe).
+    default: true
+  vystormveins.claim:
+    description: Claim an ore vein for a while (right-click an ore with the prospecting rod) and use /veinclaim.
+    default: true
+  vystormveins.claim.bypass:
+    description: Mine veins other players claimed.
+    default: op
+  vystormveins.map:
+    description: Open the ore map (/veinmap or /vmenu).
+    default: true

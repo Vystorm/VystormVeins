@@ -1,0 +1,175 @@
+journal-header: "<yellow>Diario minerario: {0} scoperte, {1}/{2} famiglie di minerali."
+journal-line: "<yellow>{0}: {1} scoperte • livello {2}/{3} • prossimo obiettivo: {4}"
+journal-unlocked: "<yellow>Collezione sbloccata: {0}, {1} scoperte (livello {2})."
+journal-collection: "<yellow>Obiettivo di collezione sbloccato: {0}/{1} famiglie!"
+journal-goals: "<yellow>Obiettivi famiglie: 3 / 6 / 10 • sbloccati: {0}/3. Solo cosmetici, senza premi in oggetti."
+journal-rules: "<yellow>Conta solo la prima estrazione riuscita in sopravvivenza per posizione. Minerali piazzati, mossi da pistoni o ricresciuti non contano."
+journal-complete: "completato"
+# Italiano — UTF-8. Keep keys, placeholders and formatting tokens unchanged.
+denied: <red>Ti manca il permesso.
+status: '<gray>Mondi: {0}; regole: {1}; nuovi pezzi: {2}; blocchi posti: {3}.'
+reloaded: <green>Configurazione controllata e ricaricata.
+player-only: <red>Eseguire questo comando in gioco.
+world-disabled: <red>Questo mondo non è abilitato o il pezzo non è caricato.
+preview: '<gold>Chunk {0}/{1}: remove {2} ore, luogo {3} blocks. Indietro! Corri! /vveins apply nello stesso pezzo dentro
+  30 secondi.'
+preview-needed: <red>Corri! /vveins preview first e rimanere nello stesso pezzo.
+preview-material: '<gray>  {0}: <yellow>{1}</yellow> blocchi pianificati'
+preview-material-more: <gray>  Più {0} altri materiali.
+applied: '<green>Fatto: {0} minerali rimossi, {1} blocchi posti.'
+usage: <gray>/vveins status | reload | preview | apply | cancel
+cancelled: <gray>L'anteprima e' stata scartata. Nessun blocco è cambiato.
+failed: <red>E' fallito. I dettagli sono nel registro server.
+reload-failed: '<red>Configurazione non valida, le impostazioni precedenti rimangono attive: {0}'
+no-preview: <gray>Non c'è un'anteprima aperta.
+preview-expired: <red>Anteprima scaduta (30 seconds). Corri! /vveins preview di nuovo.
+regrowth-warning: "<gold>Attenzione: l’80% di questa vena è stato estratto. Lascia almeno {0} blocchi di minerale perché ricresca. Rimasti: {1}."
+status-regrowth: '<gray>Freccia: su – {0} vene tracciate, {1} di loro rinnovabili ({2} blocchi originali).'
+status-regrowth-off: <gray>Scendi.
+status-prospecting: '<gray>Asta di controllo: su (sneak + click destro con {0}, raggio {1} blocchi).'
+status-prospecting-off: '<gray>Prospecting rod: off.'
+status-prospecting-hidden: '<gray>Nascosto dalla canna: {0}.'
+prospect-header: '<gold>Le staffe asta (radius {0} blocchi):'
+prospect-line: '<gray>  <yellow>{0}</yellow>: {1} blocchi, {2} – {3} in gamma'
+prospect-none: '<gray>L''asta rimane ancora: nessun minerale entro {0} blocchi.'
+prospect-cooldown: <red>L'asta ha bisogno di {0} s per risolvere.
+directions:
+  N: nord
+  NE: nord-est
+  E: est
+  SE: Sud-est
+  S: sud-est
+  SW: Sud-ovest
+  W: ovest
+  NW: nord-ovest
+  up: più alto
+  down: più avanti
+  level: alla tua altezza
+  above: proprio sopra di te
+  below: proprio qui sotto
+ore-names:
+  coal: Carbone
+  iron: Ferro da stiro
+  copper: Rame
+  gold: Oro
+  redstone: Redstone
+  lapis: Lapis Lazuli
+  diamond: Diamante
+  emerald: Smeraldo
+  nether_gold: Nether Gold
+  nether_quartz: Nero quarzo
+  ancient_debris: Debris antico
+veinmine-regrowth: <gray>L'estrazione mineraria di vena ha lasciato {0} blocchi di minerali in piedi in modo che questa vena
+  possa crescere indietro.
+veinmine-tool: '<red>L''estrazione mineraria della vena si è fermata dopo {0} blocchi: il piccone è quasi rotto.'
+status-veinmine: '<gray>Estrazione di vena: su (fino a {0} blocchi, {1}).'
+status-veinmine-off: '<gray>Estrazione della vena: spento.'
+status-sneak: sneak + mine un minerale con un piccone
+status-no-sneak: mine un minerale con un piccone
+status-map: '<gray>Mappa del minerale: su (/veinmap e /vmenu, {0} blocchi sopra e sotto il giocatore).'
+status-map-off: '<gray>Mappa degli orari: off.'
+status-map-no-core: '<gray>Mappa degli ore: su, ma ha bisogno di Vystorm Core 0.64.0 o più recente.'
+status-claims: '<gray>Concessioni minerarie: attive ({0} minuti, fino a {1} blocchi per filone).'
+status-claims-off: '<gray>Concessioni minerarie: disattivate.'
+status-deep: '<gray>Filoni profondi: attivi (i blocchi centrali richiedono {0} giocatori entro {1} blocchi, a Y {2} o meno).'
+status-deep-off: '<gray>Filoni profondi: disattivati.'
+map-off: <red>La mappa del minerale è disattivata su questo server.
+map-needs-core: <red>La mappa minerale ha bisogno di Vystorm Core sul server.
+map-cooldown: <red>La mappa del minerale può essere ridisegnata nel {0} s.
+map-menu-title: Mappa di Ore
+map-menu-description: Quali minerali si trovano nei pezzi intorno a te
+map-title: Mappa delle ore - nord è su
+map-hint: <gray>Vuoi la foto più grande?
+map-button: '[Ore map]'
+map-button-hover: Mostra i minerali nei pezzi intorno a te
+map-tile: '<yellow>{0}: {1}'
+map-here: '<green>Tu sei qui <yellow>{0}: {1}'
+map-empty: <gray>No minerali
+map-here-empty: <green>Tu sei qui <gray>nessun minerale
+map-unloaded: <dark_gray>Non caricato
+map-tile-line: '<gray>{0}: <white>{1}'
+map-tile-chunk: <dark_gray>Copertina {0}/{1}
+map-info: <gold>Mappa di Ore
+map-info-band: <gray>Conta minerali da Y {0} a Y {1}.
+map-info-north: <gray>Il nord e' finito, tu sei al centro.
+map-info-click: <gray>Fare clic su un pezzo per la sua direzione in chat.
+map-refresh: <aqua>Scansione di nuovo
+map-refresh-hint: <gray>Rescans da dove ti trovi ora (ogni {0} s).
+map-filter: '<yellow>Visualizzato: {0}'
+map-filter-all: tutti i minerali
+map-filter-hint: '<gray>Fare clic a sinistra: minerale successivo, fare clic con il pulsante destro del mouse: precedente.'
+map-close: <red>Chiudi
+map-none: nessun minerale
+map-chunk: '<gray>Copertina {0}/{1}: circa {2} blocchi {3}. <yellow>{4}'
+map-chunk-here: '<gray>Il tuo pezzo: <yellow>{0}'
+map-chunk-unloaded: <gray>Quel pezzo non è caricato, quindi non è stato scansionato.
+veinmine-enabled: <green>Estrazione di vena abilitata per voi. I requisiti di Sneaking e tool seguono ancora le impostazioni
+  del server.
+veinmine-disabled: <gray>L'estrazione di vena e' disattivata per te. Ora mi dai i singoli isolati.
+veinmine-server-off: <gray>L'estrazione di vena è attualmente disattivata su questo server; la vostra preferenza è stata salvata.
+veinmine-usage: <gray>/veinmine
+commands:
+  veinjournal:
+    aliases: []
+    usage: ""
+    name: veinjournal
+    description: "Leggi le scoperte minerarie e gli obiettivi di collezione"
+  vveins:
+    description: 'Vene di ore: stato, ricarica, anteprima e applicare il chunk corrente'
+    aliases: []
+    sub:
+      status:
+        name: status
+        aliases: []
+        description: Mondi, regole, blocchi generati, ricrescita, prospezione, estrazione mineraria di vena e mappa dei minerali
+      reload:
+        name: reload
+        aliases: []
+        description: Controllare e ricaricare config.yml (un file non valido mantiene le vecchie impostazioni)
+      preview:
+        name: preview
+        aliases: []
+        description: Anteprima rigenerazione dei minerali del vostro pezzo (valida per 30 secondi)
+      apply:
+        name: apply
+        aliases: []
+        description: Applicare l'anteprima del tuo pezzo – back up il mondo prima
+      cancel:
+        name: cancel
+        aliases: []
+        description: Eliminare l'anteprima senza cambiare blocchi
+  veinmap:
+    description: Ore mappa dei pezzi intorno a te
+    aliases: []
+  veinclaim:
+    description: "Mostra o libera la tua rivendicazione"
+    aliases: []
+    sub:
+      release:
+        name: "release"
+        aliases: []
+        description: "Libera la rivendicazione"
+  veinmine:
+    description: Toggle la vostra preferenza di estrazione mineraria di vena (salvato tra sessioni)
+    aliases: []
+safety-stopped: 'Le miniere di vena si fermarono dopo {0} blocchi supplementari: {1} accanto al minerale {2}, {3}, {4}. Rendere
+  la zona sicura prima di provare di nuovo.'
+safety-lava: lava
+safety-water: acqua
+safety-falling: blocco di caduta sopra
+safety-unloaded: scarico vicino chunk
+status-safety-on: 'Sicurezza delle miniere: abilitato.'
+status-safety-off: 'Sicurezza delle miniere: disabili.'
+claim-made: "<green>⛏ Hai rivendicato questa vena: {0} blocco/i di {1} per {2} minuti. /veinclaim release la libera."
+claim-taken: "<red>Questa vena è rivendicata da {0} per altri {1} minuto/i."
+claim-blocked: "<red>⛏ Rivendicata da {0} – ancora {1} minuto/i."
+claim-disabled: "<gray>Le rivendicazioni minerarie sono disattivate su questo server."
+claim-released: "<green>La tua rivendicazione è stata liberata."
+claim-none: "<gray>Al momento non hai rivendicazioni."
+claim-status: "<gold>La tua rivendicazione: {0} blocco/i di {1}, ancora {2} minuto/i. /veinclaim release la libera."
+deep-needs: "<gold>⛏ Il nucleo di una vena profonda richiede {0} minatori vicini – {1} qui, ne servono altri {2}."
+deep-shared: "<aqua>⛏ Vena profonda: +{0} XP per ciascuno dei {1} minatori."
+map-panel-subtitle: "Seleziona un chunk per vedere i suoi minerali. La lista va da nord a sud."
+map-panel-direction: "Mostra la direzione in chat"
+map-panel-expired: "Questa scansione non è più disponibile. Ripeti la scansione."
+map-panel-filter: "Filtro dei minerali"

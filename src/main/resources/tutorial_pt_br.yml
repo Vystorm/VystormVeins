@@ -1,0 +1,11 @@
+title: 'Veios'
+pages:
+  - title: 'Encontrar minérios'
+    text: |
+      Segure um fragmento de ametista, agache e clique com o botão direito: a varinha mostra os minérios próximos e um rastro.
+  - title: 'Minerar veios inteiros'
+    text: |
+      Agachado, minere um minério com a picareta certa: o veio inteiro vem junto. Fortuna e desgaste funcionam normalmente.
+  - title: 'Mapa e diário'
+    text: |
+      /veinmap mostra os minérios nos chunks ao redor. /veinjournal registra os tipos encontrados.
