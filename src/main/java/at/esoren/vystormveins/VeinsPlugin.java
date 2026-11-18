@@ -23,6 +23,27 @@ public final class VeinsPlugin extends JavaPlugin implements Listener, TabExecut
     /** Core version the optional Core features need; a plain constant so that this class links without Core. */
     static final String REQUIRED_CORE = "0.64.0";
     private volatile Settings settings;
+    /** Every feature switch as read from config.yml; null (= defaults) until then and in tests that mock the plugin. */
+    private volatile Feature.Switches switches;
+    /** The switches online players last got their command list for (null without Core or before the first adoption). */
+    private Feature.Switches commandSwitches;
+
+    /** Whether a feature (and the switch it needs) is on; static so classes holding a mocked plugin read the real field. */
+    static boolean enabled(VeinsPlugin plugin, Feature feature) {
+        Feature.Switches current = plugin == null ? null : plugin.switches;
+        return (current == null ? Feature.Switches.read(null) : current).on(feature);
+    }
+
+    boolean on(Feature feature) { return enabled(this, feature); }
+
+    /** True (and the shared message sent) when the feature is off; names the needed switch when only that one is off. */
+    boolean off(CommandSender sender, Feature feature) {
+        if (on(feature)) return false;
+        Feature.Switches current = switches;
+        if (feature.needs != null && current != null && !current.off().contains(feature)) say(sender, "feature-needs", feature.needs.path);
+        else say(sender, "feature-off");
+        return true;
+    }
     private volatile Regrowth regrowth;
     private volatile Prospecting.Options prospecting = Prospecting.Options.DEFAULTS;
     private volatile VeinMining.Options veinMining = VeinMining.Options.DEFAULTS;
@@ -37,7 +58,7 @@ public final class VeinsPlugin extends JavaPlugin implements Listener, TabExecut
     private final BlockPopulator populator = new BlockPopulator() {
         @Override public void populate(WorldInfo info, Random ignored, int x, int z, LimitedRegion region) {
             Settings snapshot = settings;
-            if (snapshot == null || !snapshot.worlds().contains(info.getName())) return;
+            if (snapshot == null || !on(Feature.GENERATION) || !snapshot.worlds().contains(info.getName())) return;
             Generation.Result result = Generation.run(Generation.region(region, info.getMinHeight(), info.getMaxHeight()),
                     info.getSeed(), x, z, snapshot, false, cells -> {
                         Regrowth tracker = regrowth;
@@ -65,7 +86,7 @@ public final class VeinsPlugin extends JavaPlugin implements Listener, TabExecut
                 getLogger().fine("Config menu unavailable: " + configMenuUnavailable);
             }
             try {
-                core.registerTutorial(this);
+                if (getConfig().getBoolean(Feature.TUTORIAL.path, true)) core.registerTutorial(this); // read once at start
             } catch (RuntimeException noTutorial) {
                 getLogger().fine("Tutorial not registered: " + noTutorial);
             }
@@ -74,7 +95,9 @@ public final class VeinsPlugin extends JavaPlugin implements Listener, TabExecut
             var file = new java.io.File(getDataFolder(), "config.yml");
             var config = new YamlConfiguration();
             config.load(file);
-            if (MiningSafety.migrate(config)) config.save(file);
+            // switches added since 1.22.0 come into an existing config.yml with their comments (Core's merge stays off)
+            boolean added = Feature.addMissingKeys(config, bundledConfig());
+            if (MiningSafety.migrate(config) | added) config.save(file);
             reloadConfig();
             miningSafety = MiningSafety.Options.read(config);
         } catch (Exception invalid) {
@@ -109,6 +132,7 @@ public final class VeinsPlugin extends JavaPlugin implements Listener, TabExecut
             getLogger().warning("Invalid vein-mining settings, vein mining stays off: " + error.getMessage());
         }
         oreMap = OreMap.Options.read(getConfig());
+        switches = Feature.Switches.read(getConfig());
         eventOrder = new EventOrder(this, core);
         getServer().getPluginManager().registerEvents(this, this);
         handleBlockEvents(eventOrder);
@@ -136,15 +160,61 @@ public final class VeinsPlugin extends JavaPlugin implements Listener, TabExecut
         Objects.requireNonNull(getCommand("veinmine")).setTabCompleter(this);
         if (core != null) {
             try {
-                core.adoptCommands(this);
+                adoptCommands();
             } catch (RuntimeException unavailable) {
                 getLogger().warning("Localized /vveins and /veinmap could not be registered in Vystorm Core (" + unavailable
                         + "); the English commands keep working.");
+            }
+            try {
+                // values need Vystorm Core 0.65.0; with an older Core there are no placeholders and nothing else changes
+                if (!core.registerPlaceholders(this)) getLogger().info("Placeholders need Vystorm Core 0.65.0 or newer; they are off.");
+            } catch (RuntimeException | LinkageError unavailable) {
+                getLogger().warning("Placeholders not registered: " + unavailable);
+            }
+            try {
+                core.declareSwitches(this);
+            } catch (RuntimeException | LinkageError unavailable) {
+                getLogger().fine("Switches not listed in /vadmin features: " + unavailable);
             }
         }
         getServer().getWorlds().forEach(this::attach);
         configureRegrowth();
     }
+
+    /** Core's command trees (with Core); the subcommands of switched-off features are hidden. */
+    private void adoptCommands() {
+        commandSwitches = switches == null ? Feature.Switches.read(null) : switches;
+        core.adoptCommands(this);
+    }
+
+    /**
+     * After a reload in which a switch changed: online players get their command list again. The trees are not
+     * adopted again: with Core 0.65.0 they ask the switches at every completion; with an older Core help and tab
+     * completion follow a switch after a restart.
+     */
+    private void applySwitches() {
+        if (core == null || commandSwitches == null || commandSwitches.equals(switches)) return;
+        commandSwitches = switches;
+        try { core.refreshCommands(); }
+        catch (RuntimeException | LinkageError unavailable) { getLogger().warning("Command lists could not be sent again: " + unavailable); }
+    }
+
+    /** The config.yml in the jar (defaults and their comments). */
+    YamlConfiguration bundledConfig() {
+        YamlConfiguration defaults = new YamlConfiguration();
+        try (var in = getResource("config.yml")) {
+            if (in != null) defaults.loadFromString(new String(in.readAllBytes(), java.nio.charset.StandardCharsets.UTF_8));
+        } catch (Exception unreadable) {
+            getLogger().warning("Bundled config.yml unreadable: " + unreadable);
+        }
+        return defaults;
+    }
+
+    /** Journal counts of a player (placeholders). */
+    long[] journalCounts(Player player) { return MiningJournal.counts(player.getPersistentDataContainer()); }
+
+    /** The player's active mining claim, if any (placeholders). */
+    Optional<MiningClaims.Claim> claimOf(UUID player) { return claims.of(player, System.currentTimeMillis()); }
     /**
      * Vystorm Core is a soft dependency: without Core, or with a Core that is too old for the managers, the
      * Core-based features stay off and the plugin keeps running.
@@ -192,7 +262,7 @@ public final class VeinsPlugin extends JavaPlugin implements Listener, TabExecut
     // ---- mining claims ----
 
     boolean claimsEnabled() {
-        return getConfig().getBoolean("claims.enabled", true);
+        return on(Feature.CLAIMS);
     }
     int claimMaxBlocks() {
         return Math.clamp(getConfig().getInt("claims.max-blocks", 128), 1, 512);
@@ -292,7 +362,7 @@ public final class VeinsPlugin extends JavaPlugin implements Listener, TabExecut
             return;
         }
         if (!claimsEnabled()) {
-            say(player, "claim-disabled");
+            say(player, "feature-off");
             return;
         }
         if (release) {
@@ -392,6 +462,7 @@ public final class VeinsPlugin extends JavaPlugin implements Listener, TabExecut
         return texts;
     }
     void journal(CommandSender sender) {
+        if (off(sender, Feature.JOURNAL)) return;
         journal.show(sender);
     }
     private void trail(Player player, World world, String family, int tx, int ty, int tz) {
@@ -510,7 +581,7 @@ public final class VeinsPlugin extends JavaPlugin implements Listener, TabExecut
     /** {@code /veinmap}: the ore map menu. */
     void veinMap(CommandSender sender) {
         if (!(sender instanceof Player player)) say(sender, "player-only");
-        else if (!oreMap.enabled()) say(sender, "map-off");
+        else if (!oreMap.enabled()) say(sender, "feature-off");
         else if (oreMapMenu == null) say(sender, "map-needs-core");
         else oreMapMenu.open(player);
     }
@@ -546,7 +617,7 @@ public final class VeinsPlugin extends JavaPlugin implements Listener, TabExecut
             if (claimsEnabled()) say(sender, "status-claims", claimMinutes(), claimMaxBlocks());
             else say(sender, "status-claims-off");
             DeepVeins.Options deep = deepVeins == null ? null : deepVeins.options();
-            if (deep != null && deep.enabled()) say(sender, "status-deep", deep.players(), deep.radius(), deep.maxY());
+            if (deepVeinsActive(deep, settings)) say(sender, "status-deep", deep.players(), deep.radius(), deep.maxY());
             else say(sender, "status-deep-off");
         });
     }
@@ -557,14 +628,15 @@ public final class VeinsPlugin extends JavaPlugin implements Listener, TabExecut
             VeinMining.Options nextVeinMining;
             OreMap.Options nextOreMap;
             MiningSafety.Options nextSafety;
+            Feature.Switches nextSwitches;
             try {
-                YamlConfiguration next = new YamlConfiguration();
-                next.load(new java.io.File(getDataFolder(), "config.yml"));
+                YamlConfiguration next = readConfigFile(new java.io.File(getDataFolder(), "config.yml"), bundledConfig());
                 validated = Settings.read(next);
                 nextProspecting = Prospecting.Options.read(next);
                 nextVeinMining = VeinMining.Options.read(next);
                 nextOreMap = OreMap.Options.read(next);
                 nextSafety = MiningSafety.Options.read(next);
+                nextSwitches = Feature.Switches.read(next);
             } catch (Exception invalid) {
                 getLogger().warning("Reload rejected, previous settings stay active: " + reason(invalid));
                 say(sender, "reload-failed", reason(invalid));
@@ -575,6 +647,7 @@ public final class VeinsPlugin extends JavaPlugin implements Listener, TabExecut
             veinMining = nextVeinMining;
             oreMap = nextOreMap;
             miningSafety = nextSafety;
+            switches = nextSwitches;
             previews.clear();
             prospectCooldowns.clear();
             if (oreMapMenu != null) oreMapMenu.clearCooldowns();
@@ -582,10 +655,12 @@ public final class VeinsPlugin extends JavaPlugin implements Listener, TabExecut
             configureRegrowth();
             if (deepVeins != null) deepVeins.apply();
             if (texts != null) texts.reload();
+            applySwitches();
             say(sender, "reloaded");
         });
     }
     void preview(Player player) {
+        if (off(player, Feature.CHUNK_PREVIEW)) return;
         guarded(player, () -> {
             World w = player.getWorld();
             int x = player.getLocation().getBlockX() >> 4, z = player.getLocation().getBlockZ() >> 4;
@@ -603,6 +678,7 @@ public final class VeinsPlugin extends JavaPlugin implements Listener, TabExecut
         });
     }
     void cancel(Player player) {
+        if (off(player, Feature.CHUNK_PREVIEW)) return;
         guarded(player, () -> {
             if (previews.remove(player.getUniqueId()) == null) {
                 say(player, "no-preview");
@@ -612,6 +688,7 @@ public final class VeinsPlugin extends JavaPlugin implements Listener, TabExecut
         });
     }
     void apply(Player player) {
+        if (off(player, Feature.CHUNK_PREVIEW)) return;
         guarded(player, () -> {
             Preview p = previews.remove(player.getUniqueId());
             if (p != null && System.nanoTime() > p.expires) {
@@ -631,6 +708,30 @@ public final class VeinsPlugin extends JavaPlugin implements Listener, TabExecut
             say(player, "applied", result.removed(), result.placed());
         });
     }
+    /**
+     * config.yml as /vveins reload reads it, the same way the start reads {@link #getConfig()}: Bukkit gives that one
+     * the jar's config.yml as defaults, so a config without a {@code deep-veins} section (from before 1.18.0) generates
+     * deep veins with the jar's values. Only that section falls back here: a missing {@code deposits} section is still
+     * rejected, and a missing {@code vein-mining} or {@code ore-map} section still means off (their switches are read
+     * with an explicit default, which Bukkit takes before the defaults section, at start as on reload).
+     */
+    static YamlConfiguration readConfigFile(java.io.File file, YamlConfiguration bundled) throws Exception {
+        YamlConfiguration next = new YamlConfiguration();
+        next.load(file);
+        YamlConfiguration defaults = new YamlConfiguration();
+        org.bukkit.configuration.ConfigurationSection deep = bundled.getConfigurationSection("deep-veins");
+        if (deep != null) for (String key : deep.getKeys(true))
+            if (!deep.isConfigurationSection(key)) defaults.set("deep-veins." + key, deep.get(key));
+        next.setDefaults(defaults);
+        return next;
+    }
+
+    /** /vveins status says "on" only while the deep-vein generation rule really is in the active settings. */
+    static boolean deepVeinsActive(DeepVeins.Options deep, Settings settings) {
+        return deep != null && deep.enabled() && settings != null
+                && settings.rules().stream().anyMatch(rule -> rule.id().equals(DeepVeins.DEPOSIT));
+    }
+
     /** Short, single-line reason for a rejected reload, safe to show in chat. */
     static String reason(Throwable failure) {
         String message = failure.getMessage();

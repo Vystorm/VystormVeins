@@ -64,5 +64,35 @@ final class CoreLink {
     /** Hands the plugin.yml commands to Core's command trees. */
     void adoptCommands(VeinsPlugin plugin) { VeinsCommands.adopt(plugin, core.command()); }
 
+    /** Core version whose command nodes ask a condition at every completion ({@code visibleWhen}) and that has {@code refresh()}. */
+    static final String LIVE_COMMANDS_CORE = "0.65.0";
+
+    /** Whether tab completion and help can follow a switch at once (Core {@value #LIVE_COMMANDS_CORE} or newer). */
+    static boolean liveCommands() { return CoreApi.atLeast(LIVE_COMMANDS_CORE); }
+
+    /** Sends online players their command list again; nothing with a Core older than {@value #LIVE_COMMANDS_CORE}. */
+    void refreshCommands() { if (liveCommands()) core.command().refresh(); }
+
     Regrowth regrowth(VeinsPlugin plugin) { return new Regrowth(plugin, core.data().files(), core.tasks()); }
+
+    /** Core version that has {@code api.placeholders()}. */
+    static final String PLACEHOLDER_CORE = "0.65.0";
+
+    /** The namespace {@code veins} in Core's placeholder registry; false (nothing registered) with a Core older than 0.65.0. */
+    boolean registerPlaceholders(VeinsPlugin plugin) {
+        if (!CoreApi.atLeast(PLACEHOLDER_CORE)) return false;
+        VeinsPlaceholders.register(core.placeholders(), plugin, VeinsPlaceholders.source(plugin), key -> plugin.texts() == null ? key : plugin.texts().ref(key));
+        return true;
+    }
+
+    /** Every switch in /vadmin features with its one-line description; keys not named enabled are declared. */
+    void declareSwitches(VeinsPlugin plugin) {
+        var config = core.settings().config();
+        for (Feature feature : Feature.values()) {
+            String description = plugin.texts() == null ? null : plugin.texts().ref(feature.description());
+            config.feature(plugin, feature.path, null, description);
+            if (feature.needsRestart())
+                config.activation(plugin, feature.path, Vystorm.vystorm_core._uiMethods.settings.SettingPolicy.Activation.RESTART);
+        }
+    }
 }

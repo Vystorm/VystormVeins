@@ -1,9 +1,21 @@
 # VystormVeins – large ore deposits, prospecting rod, vein mining and ore map.
 # After editing: /vveins reload (or change values in /vadmin config VystormVeins).
-# replace_natural: true removes that vanilla ore family from new chunks; your own veins stay.
-# false keeps vanilla ores in addition. Missing entries count as false.
+#
+# Every feature has an on/off switch. With Vystorm Core they are listed in /vadmin features; without Core set them
+# here and run /vveins reload. They apply at once, except tutorial.enabled (restart). A switched-off feature does
+# nothing and its commands answer "This feature is switched off on this server."; journals, regrowth data and the
+# veins in the world stay as they are.
+
+# The generation itself: connected ore deposits in new chunks of these worlds. Off (generation.enabled): new chunks
+# keep vanilla ore, nothing is removed (replace_natural), and /vveins preview and apply are switched off. Veins that
+# already exist stay. Prospecting, vein mining, claims and the journal keep working on any ore.
+generation:
+  enabled: true
 worlds:
 - world
+# replace_natural: true removes that vanilla ore family from new chunks; your own veins stay.
+# false keeps vanilla ores in addition. Missing entries count as false.
+# One switch per vanilla ore family (listed in /vadmin features); needs generation.enabled.
 replace_natural:
   coal: false
   iron: false
@@ -147,6 +159,7 @@ deep-veins:
   # XP every nearby miner gets per core block (0-1000).
   xp-per-block: 15
 
+# The prospecting rod (sneak + right-click with the item). Off: the rod does nothing; claims still use the item.
 prospecting:
   enabled: true
   item: AMETHYST_SHARD
@@ -196,3 +209,17 @@ mining-safety:
   lava: true
   water: false
   falling-blocks: true
+
+# Chunk preview and apply (/vveins preview, apply, cancel; admins): calculate the changes for the chunk you stand in,
+# then apply or discard them. Off: the three commands are switched off. Needs generation.enabled.
+chunk-preview:
+  enabled: true
+
+# Mining journal (/veinjournal): personal discoveries per ore family with tiers and collection goals. Off: the command
+# is switched off and nothing is counted; the journals stay on the players.
+mining-journal:
+  enabled: true
+
+# Tutorial in the Vystorm Core main menu (/vmenu -> Tutorials; needs Core). Needs a server restart to apply.
+tutorial:
+  enabled: true

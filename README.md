@@ -25,11 +25,25 @@ Only the first confirmed successful survival harvest at a position is credited t
 
 ## Installation and compatibility
 
-Copy `VystormVeins-1.14.0.jar` into `plugins/` and restart. Configure enabled worlds/deposits in `config.yml`; the default generation world is `world`. Existing chunks are not silently regenerated. Generation has no runtime dependency on OreVeins.
+Copy `VystormVeins-<version>.jar` into `plugins/` and restart. Configure enabled worlds/deposits in `config.yml`; the default generation world is `world`. Existing chunks are not silently regenerated. Generation has no runtime dependency on OreVeins.
 
-Core is optional. If installed, use **0.64.0+** (with an older Core the Core features stay off and one log line says so); rich text explicitly crosses Core's separate Bukkit library class loader through the existing bridge. Standalone messages remain English. With Core, English, German, French, Italian, Brazilian Portuguese, Russian and Simplified Chinese are available.
+Core is optional. If installed, use **0.64.0+** for the Core features (with an older Core they stay off and one log line says so) and **0.65.0+** for the placeholders; rich text explicitly crosses Core's separate Bukkit library class loader through the existing bridge. Standalone messages remain English. With Core, English, German, French, Italian, Brazilian Portuguese, Russian and Simplified Chinese are available.
 
-API paths support Paper/Purpur 1.20.6 onward and Spigot/CraftBukkit 26.2/26.3. Use the Java version required by your server; the plugin targets Java 21. Folia is unsupported.
+Built for Paper/Purpur 1.20.6 to 26.x (Java 21 bytecode, API version 1.20.6); the build compiles the plugin against the Paper 1.20.6 API and runs its adapter tests there (`compat1206`, `test1206`). The code keeps Bukkit/Spigot fallback paths for Spigot/CraftBukkit 26.2/26.3, but no live start on Spigot is recorded for this plugin. Use the Java version required by your server. Folia is unsupported.
+
+## Switches
+
+Every feature has an on/off switch in `config.yml`. Without Core, set them there and run `/vveins reload`; with Core they are also listed in `/vadmin features`. A missing key keeps the value the plugin used before, so an old config behaves as before; the new keys are added to an existing `config.yml` with their comments (only those keys: a missing `vein-mining` or `ore-map` section of a config from before 1.5.0 still means off). Only `tutorial.enabled` needs a restart. A switched-off feature answers "This feature is switched off on this server." and its placeholders are empty.
+
+- Generation: `generation.enabled` (off: new chunks keep vanilla ore, nothing is removed, `/vveins preview` and `apply` are off; existing veins stay), the eleven `replace_natural.<ore>` keys and `chunk-preview.enabled`, which all need it.
+- Mining: `prospecting.enabled`, `vein-mining.enabled`, `mining-safety.enabled`, `claims.enabled`, `deep-veins.enabled`, `mining-journal.enabled`.
+- With Core: `ore-map.enabled`, `regrowth.enabled`, `tutorial.enabled`.
+
+The presets and `/vveins status` and `reload` have no switch: the presets are files you copy yourself, and status and reload are needed to see and apply the switches.
+
+## Placeholders (with Core 0.65.0)
+
+Namespace `veins`, listed by `/vadmin placeholders veins`: `%vystorm_veins_journal_total%`, `journal_discovered`, `journal_families`, `journal_collection_tier`, `journal_<family>` and `journal_<family>_tier` (coal, iron, copper, gold, redstone, lapis, diamond, emerald, nether_quartz, ancient_debris), `claim_family`, `claim_blocks_left`, `veins_tracked`, `veins_renewable`. Short form in Vystorm texts: `{veins:journal_diamond}`.
 
 ## Build and reference
 

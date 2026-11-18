@@ -107,6 +107,7 @@ final class MiningJournal {
         Player player = event.getPlayer();
         Block block = event.getBlock();
         String family = family(block.getType());
+        if (!VeinsPlugin.enabled(plugin, Feature.JOURNAL)) return; // mining-journal.enabled off: nothing is counted
         if (family == null || player.getGameMode() != GameMode.SURVIVAL || !player.hasPermission("vystormveins.journal")) return;
         if (seen(block.getChunk().getPersistentDataContainer(), coordinate(block)) || pending.size() >= 1024) return;
         Material original = block.getType();

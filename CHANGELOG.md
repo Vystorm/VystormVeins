@@ -1,3 +1,16 @@
+## 1.22.0 — 2026-11-18
+
+- Vystorm Core stays optional. The Core features still need Core 0.64.0 or newer; the new placeholders need Core 0.65.0 or newer and are simply off with an older Core.
+- Every feature can now be switched on and off in `config.yml`, also without Core (`/vveins reload` applies them). A missing key keeps the value the plugin used before, so a server that updates keeps working as before. The new keys are added to your existing `config.yml` with their comments, and only those keys: a missing `vein-mining` or `ore-map` section of a config from before 1.5.0 still means off. With Core each switch is listed in `/vadmin features` with a one-line description in seven languages. Only `tutorial.enabled` needs a restart.
+  - The generation itself: `generation.enabled`. Off: new chunks keep vanilla ore, no vanilla ore is removed, and `/vveins preview`, `apply` and `cancel` are switched off. Existing veins stay. Prospecting, vein mining, claims and the journal keep working on any ore.
+  - New switches: `chunk-preview.enabled` (needs `generation.enabled`), `mining-journal.enabled` (off: `/veinjournal` is switched off and nothing is counted; the journals stay on the players), `tutorial.enabled` (needs a restart).
+  - Keys that already existed keep their names and are now listed as switches too: the eleven `replace_natural.<ore>` keys (they need `generation.enabled`), and the `enabled` keys of prospecting, vein mining, mining safety, the ore map, claims, deep veins and regrowth.
+- A switched-off feature answers one shared message, "This feature is switched off on this server.", and with Core its commands are hidden from help and tab completion. A feature that needs another switch names it. The ore map and claims now use this message too.
+- Tab completion and help follow a switch at once, without registering the command again. This needs Core 0.65.0; with an older Core they follow a switch after a restart.
+- Fix (also in 1.21.0): `/vveins reload` read `config.yml` without the plugin's built-in values, so a config from before 1.18.0 without a `deep-veins` section lost the deep-vein generation after a reload while the start had it. Reload now reads the config like the start: a missing `deep-veins` section uses the built-in values, a missing `vein-mining` or `ore-map` section still means off, and a missing `deposits` section is still rejected. `/vveins status` says "Deep veins: on" only while deep veins are really generated.
+- Placeholders (with Core 0.65.0): the plugin registers its values under the namespace `veins`: journal discoveries in total and per ore family with their tiers, discovered families, the collection tier, the player's mining claim and the regrowth counters. Examples: `%vystorm_veins_journal_total%` (all discoveries of the player) and `{veins:claim_family}` (the ore of the player's claim). `/vadmin placeholders veins` lists them. A value of a switched-off feature is empty.
+- README: the jar name no longer names version 1.14.0, and the compatibility line says what the build checks (Paper 1.20.6 API) instead of claiming a Spigot run that is not recorded for this plugin.
+
 ## 1.21.0 — 2026-11-17
 
 - Vystorm Core stays optional. If Core is installed, it must be 0.64.0 or newer; with an older Core the Core-based features are off.
