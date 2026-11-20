@@ -32,6 +32,8 @@ final class Regrowth implements AutoCloseable {
     private volatile Map<String, RegrowthOptions> options = Map.of();
     private int maxCells;
     private boolean dirty;
+    /** The tracking limit was reached and said once on the console; cleared by a reload (configure). */
+    private boolean limitHit, limitReported;
 
     Regrowth(VeinsPlugin plugin, AtomicFilesInterface files, TaskGroupInterface taskGroups) {
         this.plugin = plugin;
@@ -81,6 +83,11 @@ final class Regrowth implements AutoCloseable {
         enabled = defaults.enabled() || options.values().stream().anyMatch(RegrowthOptions::enabled);
         worlds = settings.worlds();
         maxCells = Math.clamp(plugin.getConfig().getInt("regrowth.max-tracked-blocks", 100000), 100, 1000000);
+        limitReported = false;
+    }
+    /** {@code regrowth.max-tracked-blocks} as applied (100 to 1,000,000). */
+    int maxCells() {
+        return maxCells;
     }
     boolean enabled() {
         return enabled;
@@ -119,9 +126,15 @@ final class Regrowth implements AutoCloseable {
         Batch batch;
         while ((batch = pending.poll()) != null) {
             for (var vein : RegrowthState.partition(batch.world(), batch.cells())) {
-                // Never reset a previously tracked position (including exhausted veins) with /apply.
-                if (vein.cells.size() > 4096 || index.size() + vein.cells.size() > maxCells || vein.cells.stream().anyMatch(c -> index.containsKey(vein.world + ":" + c.key()))) {
+                // Never reset a previously tracked position (including exhausted veins) with /apply. That is not a
+                // limit: before 1.22.2 it was reported as "tracking limit reached" on every /vveins apply.
+                if (vein.cells.stream().anyMatch(c -> index.containsKey(vein.world + ":" + c.key()))) continue;
+                if (vein.cells.size() > 4096) {
                     overflow = true;
+                    continue;
+                }
+                if (index.size() + vein.cells.size() > maxCells) {
+                    limitHit = true;
                     continue;
                 }
                 vein.nextGrowth = System.currentTimeMillis() + options(vein.deposit).intervalMillis();
@@ -132,7 +145,17 @@ final class Regrowth implements AutoCloseable {
         }
         if (overflow) {
             overflow = false;
-            plugin.getLogger().warning("Regrowth tracking limit reached: some new veins remain non-renewable. Existing records are preserved.");
+            plugin.getLogger().warning("Regrowth could not take every new vein at once (very large vein or a full queue): some new veins remain non-renewable. Existing records are preserved.");
+        }
+        if (limitHit) {
+            limitHit = false;
+            // Once per start or reload: with 20 players exploring this came every second before 1.22.2.
+            if (!limitReported) {
+                limitReported = true;
+                plugin.getLogger().warning("Regrowth tracking limit reached: " + index.size() + " of " + maxCells
+                        + " original blocks are tracked (regrowth.max-tracked-blocks, at most 1000000). Newly found veins stay"
+                        + " non-renewable; existing records are preserved. Shown once until the next start or /vveins reload.");
+            }
         }
     }
     private void removed(Block block, boolean replaced) {

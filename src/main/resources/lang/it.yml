@@ -24,7 +24,7 @@ reload-failed: '<red>Configurazione non valida, le impostazioni precedenti riman
 no-preview: <gray>Non c'è un'anteprima aperta.
 preview-expired: <red>Anteprima scaduta (30 seconds). Corri! /vveins preview di nuovo.
 regrowth-warning: "<gold>Attenzione: l’80% di questa vena è stato estratto. Lascia almeno {0} blocchi di minerale perché ricresca. Rimasti: {1}."
-status-regrowth: '<gray>Freccia: su – {0} vene tracciate, {1} di loro rinnovabili ({2} blocchi originali).'
+status-regrowth: '<gray>Ricrescita: attiva – {0} vene tracciate, di cui {1} rinnovabili ({2} blocchi originali su un massimo di {3}).'
 status-regrowth-off: <gray>Scendi.
 status-prospecting: '<gray>Asta di controllo: su (sneak + click destro con {0}, raggio {1} blocchi).'
 status-prospecting-off: '<gray>Prospecting rod: off.'

@@ -22,7 +22,7 @@ reload-failed: "<red>Konfiguration ungültig, bisherige Einstellungen bleiben ak
 no-preview: "<gray>Keine offene Vorschau vorhanden."
 preview-expired: "<red>Vorschau abgelaufen (30 Sekunden). Erneut /vveins preview ausführen."
 regrowth-warning: "<gold>Achtung: 80 % dieser Ader sind abgebaut. Lass mindestens {0} Erzblöcke stehen, damit sie nachwächst. Übrig: {1}."
-status-regrowth: "<gray>Nachwachsen: aktiv – {0} Adern erfasst, davon {1} erneuerbar ({2} Originalblöcke)."
+status-regrowth: "<gray>Nachwachsen: aktiv – {0} Adern erfasst, davon {1} erneuerbar ({2} von höchstens {3} Originalblöcken)."
 status-regrowth-off: "<gray>Nachwachsen: aus."
 status-prospecting: "<gray>Wünschelrute: aktiv (Schleichen + Rechtsklick mit {0}, Umkreis {1} Blöcke)."
 status-prospecting-off: "<gray>Wünschelrute: aus."

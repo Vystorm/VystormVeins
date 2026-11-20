@@ -24,7 +24,7 @@ reload-failed: '<red>Configuração inválida, as configurações anteriores per
 no-preview: <gray>Não há nenhuma prévia aberta.
 preview-expired: <red>Previsão expirada (30 seconds). Corra /vveins preview De novo.
 regrowth-warning: "<gold>Cuidado: 80% deste veio foi minerado. Deixe pelo menos {0} bloco(s) de minério para ele crescer de novo. Restam: {1}."
-status-regrowth: '<gray>Recrescimento: {0} veias rastreadas, {1} delas renováveis ({2} blocos originais).'
+status-regrowth: '<gray>Recrescimento: ativo – {0} veios rastreados, {1} deles renováveis ({2} de no máximo {3} blocos originais).'
 status-regrowth-off: <gray>Rebrota.
 status-prospecting: '<gray>Vara de observação: no botão direito com {0}, raio {1} blocos.'
 status-prospecting-off: '<gray>Vara de observação: desligada.'

@@ -139,6 +139,41 @@ class RegrowthTest {
         assertEquals(1,data().veins.size()); assertTrue(data().veins.getFirst().exhausted);
         assertTrue(materials.values().stream().allMatch(v->v.get()==Material.AIR));
     }
+    /** Collects the warnings the tracker writes to the console. */
+    List<String> warnings() {
+        List<String> lines=new ArrayList<>();
+        var logger=java.util.logging.Logger.getAnonymousLogger(); logger.setUseParentHandlers(false);
+        logger.addHandler(new java.util.logging.Handler() {
+            @Override public void publish(java.util.logging.LogRecord record) { lines.add(record.getMessage()); }
+            @Override public void flush() {}
+            @Override public void close() {}
+        });
+        when(plugin.getLogger()).thenReturn(logger);
+        return lines;
+    }
+    void vein(int y, int size) {
+        tracker.generated(worldId,java.util.stream.IntStream.range(0,size)
+                .mapToObj(x->new Generation.OreCell(x,y,0,"minecraft:iron_ore")).toList());
+        tracker.counts(); // drains the queue on the "main thread"
+    }
+    @Test void reapplyingTrackedVeinsIsNotReportedAsTheLimit() {
+        List<String> lines=warnings();
+        tracker.counts();
+        vein(0,10); // the same ten cells as in setup, as /vveins apply would generate them again
+        assertEquals(1,tracker.counts()[0]);
+        assertEquals(List.of(),lines);
+    }
+    @Test void trackingLimitIsReportedOncePerReloadWithTheNumbers() {
+        List<String> lines=warnings();
+        plugin.getConfig().set("regrowth.max-tracked-blocks",100); tracker.configure(new Settings(Set.of("world"),false,List.of()));
+        assertEquals(100,tracker.maxCells());
+        vein(10,50); vein(20,50); vein(30,50);
+        assertEquals(60,tracker.counts()[2]);
+        assertEquals(1,lines.size(),lines.toString());
+        assertTrue(lines.getFirst().contains("60 of 100") && lines.getFirst().contains("regrowth.max-tracked-blocks"),lines.getFirst());
+        tracker.configure(new Settings(Set.of("world"),false,List.of())); vein(40,50);
+        assertEquals(2,lines.size(),"a reload reports it again");
+    }
     @Test void externalRemovalOfLastSeedPreventsGrowth() throws Exception {
         for(int x=0;x<9;x++) mine(x);
         materials.get(9).set(Material.AIR); grow();

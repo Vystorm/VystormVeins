@@ -1,3 +1,10 @@
+## 1.22.2 — 2026-11-20
+
+- `/vveins status` shows the regrowth limit next to the count: "60000 of at most 100000 original blocks" (`regrowth.max-tracked-blocks`). Exhausted veins keep their place, so the count only grows; raise the value in `config.yml` (up to 1,000,000) before it is full.
+- When the limit is reached, the console says so once, with the numbers and the key, until the next start or `/vveins reload`. Before, the same line came again with every newly generated vein, about once a second while players explored.
+- Fixed: running `/vveins apply` over veins that are already tracked wrote "Regrowth tracking limit reached" to the console although no limit was reached. Those veins are still left as they are; the line is gone.
+- No file changes; Vystorm Core stays optional. A language file already on your server keeps its own status text.
+
 ## 1.22.1 — 2026-11-20
 
 - Fixed: when `config.yml` has a YAML mistake, the answer of `/vveins reload` and the console now name the line and column of the mistake (before, only "while scanning a simple key"). The file is never changed; the previous settings stay active on a reload, and at start the plugin stays off until the file is fixed.

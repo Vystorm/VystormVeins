@@ -602,7 +602,7 @@ public final class VeinsPlugin extends JavaPlugin implements Listener, TabExecut
             if (tracker == null || !tracker.enabled()) say(sender, "status-regrowth-off");
             else {
                 int[] veins = tracker.counts();
-                say(sender, "status-regrowth", veins[0], veins[1], veins[2]);
+                say(sender, "status-regrowth", veins[0], veins[1], veins[2], tracker.maxCells());
             }
             say(sender, prospecting.enabled() ? "status-prospecting" : "status-prospecting-off",
                     prospecting.item().getKey().getKey(), prospecting.radius());

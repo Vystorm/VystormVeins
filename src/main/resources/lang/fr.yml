@@ -24,7 +24,7 @@ reload-failed: '<red>Configuration invalide, les paramètres précédents resten
 no-preview: <gray>Il n'y a pas d'aperçu ouvert.
 preview-expired: <red>L'aperçu est expiré (30 seconds). Cours /vveins preview encore.
 regrowth-warning: "<gold>Attention : 80 % de ce filon est miné. Laissez au moins {0} bloc(s) de minerai pour qu’il repousse. Restant : {1}."
-status-regrowth: '<gray>Recroissance : sur – {0} veines suivies, dont {1} renouvelables ({2} blocs originaux).'
+status-regrowth: '<gray>Recroissance : activée – {0} veines suivies, dont {1} renouvelables ({2} blocs originaux sur {3} au plus).'
 status-regrowth-off: '<gray>Recroissance: éteint.'
 status-prospecting: '<gray>Barre de prospection: marche (sneak + clic droit avec {0}, rayon {1} blocs).'
 status-prospecting-off: '<gray>Barre de prospection: éteint.'

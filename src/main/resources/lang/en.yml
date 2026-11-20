@@ -22,7 +22,7 @@ reload-failed: "<red>Configuration invalid, the previous settings stay active: {
 no-preview: "<gray>There is no open preview."
 preview-expired: "<red>Preview expired (30 seconds). Run /vveins preview again."
 regrowth-warning: "<gold>Careful: 80% of this vein is mined. Leave at least {0} ore block(s) so it grows back. Left now: {1}."
-status-regrowth: "<gray>Regrowth: on – {0} veins tracked, {1} of them renewable ({2} original blocks)."
+status-regrowth: "<gray>Regrowth: on – {0} veins tracked, {1} of them renewable ({2} of at most {3} original blocks)."
 status-regrowth-off: "<gray>Regrowth: off."
 status-prospecting: "<gray>Prospecting rod: on (sneak + right-click with {0}, radius {1} blocks)."
 status-prospecting-off: "<gray>Prospecting rod: off."
