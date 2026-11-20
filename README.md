@@ -29,7 +29,7 @@ Copy `VystormVeins-<version>.jar` into `plugins/` and restart. Configure enabled
 
 Core is optional. If installed, use **0.64.0+** for the Core features (with an older Core they stay off and one log line says so) and **0.65.0+** for the placeholders; rich text explicitly crosses Core's separate Bukkit library class loader through the existing bridge. Standalone messages remain English. With Core, English, German, French, Italian, Brazilian Portuguese, Russian and Simplified Chinese are available.
 
-Built for Paper/Purpur 1.20.6 to 26.x (Java 21 bytecode, API version 1.20.6); the build compiles the plugin against the Paper 1.20.6 API and runs its adapter tests there (`compat1206`, `test1206`). The code keeps Bukkit/Spigot fallback paths for Spigot/CraftBukkit 26.2/26.3, but no live start on Spigot is recorded for this plugin. Use the Java version required by your server. Folia is unsupported.
+Tested on Paper and Purpur 26.2, Paper 1.20.6 and Spigot 26.2 (Java 21 bytecode, API version 1.20.6); the build also compiles the plugin against the Paper 1.20.6 API and runs its adapter tests there (`compat1206`, `test1206`). Use the Java version required by your server. Folia is unsupported.
 
 ## Switches
 

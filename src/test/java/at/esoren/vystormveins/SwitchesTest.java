@@ -57,6 +57,35 @@ class SwitchesTest {
         }
     }
 
+    /**
+     * 1.22.1: every boolean that Core's {@code /vadmin features} lists for config.yml (keys named {@code enabled},
+     * top-level booleans, declared switches) has a readable name and a description in all seven languages, so the
+     * screen never shows a raw key path such as "Replace natural › Diamond".
+     */
+    @Test void givenEveryFeatureCoreListsFromConfigYml_whenDescribed_thenAllSevenLanguagesHaveNameAndDescription() {
+        YamlConfiguration config = YamlConfiguration.loadConfiguration(CONFIG.toFile());
+        java.util.Set<String> housekeeping = java.util.Set.of("metrics", "debug", "verbose", "sound", "console-log", "placeholderapi", "update-check");
+        List<String> declared = java.util.Arrays.stream(Feature.values()).map(f -> f.path).toList();
+        int listed = 0;
+        for (String path : config.getKeys(true)) {
+            if (!config.isBoolean(path)) continue;
+            boolean feature = path.equals("enabled") || path.endsWith(".enabled") || (path.indexOf('.') < 0 && !housekeeping.contains(path));
+            if (!feature && !declared.contains(path)) continue;
+            assertTrue(declared.contains(path), "every listed switch is a Feature with name and description: " + path);
+            listed++;
+        }
+        assertEquals(Feature.values().length, listed);
+        for (String code : LANGUAGES) {
+            YamlConfiguration lang = YamlConfiguration.loadConfiguration(new File("src/main/resources/lang/" + code + ".yml"));
+            for (Feature feature : Feature.values()) {
+                assertFalse(lang.getString(feature.label(), "").isBlank(), code + " " + feature.label());
+                assertFalse(lang.getString(feature.description(), "").isBlank(), code + " " + feature.description());
+            }
+            String needs = lang.getString("feature-needs", "");
+            assertTrue(needs.contains("{0}") && needs.contains("{1}"), code + " " + needs);
+        }
+    }
+
     @Test void givenAConfigFrom1_21_whenRead_thenEveryFeatureKeepsItsState() {
         YamlConfiguration old = YamlConfiguration.loadConfiguration(OLD.toFile());
         Set<Feature> off = Feature.Switches.read(old).off();
@@ -111,8 +140,9 @@ class SwitchesTest {
         verify(textsOf(noPreview), times(2)).say(admin, "feature-off");
         VeinsPlugin noGeneration = plugin(Feature.GENERATION);
         Player other = player();
+        when(textsOf(noGeneration).word(other, Feature.GENERATION.label())).thenReturn("Ore veins in new chunks");
         noGeneration.preview(other);
-        verify(textsOf(noGeneration)).say(other, "feature-needs", "generation.enabled");
+        verify(textsOf(noGeneration)).say(other, "feature-needs", "generation.enabled", "Ore veins in new chunks");
         VeinsPlugin noClaims = plugin(Feature.CLAIMS);
         Player claimer = player();
         noClaims.claimCommand(claimer, false);

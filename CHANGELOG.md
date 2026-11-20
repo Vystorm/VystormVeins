@@ -1,3 +1,10 @@
+## 1.22.1 — 2026-11-20
+
+- Fixed: when `config.yml` has a YAML mistake, the answer of `/vveins reload` and the console now name the line and column of the mistake (before, only "while scanning a simple key"). The file is never changed; the previous settings stay active on a reload, and at start the plugin stays off until the file is fixed.
+- With Vystorm Core, `/vadmin features` names every switch of the plugin in seven languages ("Replace vanilla diamond ore", "Mining safety") instead of the key path ("Replace natural › Diamond"). Core stays optional.
+- A feature that needs another switch now names it in full: "This needs “Ore veins in new chunks” (generation.enabled), which is switched off on this server." Before, the message only gave the key. Without Core the name comes in English. A language file already on your server keeps its own text.
+- README: the supported servers are written as tested: Paper and Purpur 26.2, Paper 1.20.6 and Spigot 26.2.
+
 ## 1.22.0 — 2026-11-18
 
 - Vystorm Core stays optional. The Core features still need Core 0.64.0 or newer; the new placeholders need Core 0.65.0 or newer and are simply off with an older Core.

@@ -87,10 +87,18 @@ final class CoreLink {
 
     /** Every switch in /vadmin features with its one-line description; keys not named enabled are declared. */
     void declareSwitches(VeinsPlugin plugin) {
-        var config = core.settings().config();
+        VeinsTexts texts = plugin.texts();
+        declareSwitches(core.settings().config(), plugin, texts == null ? null : texts::ref);
+    }
+
+    /** What Core receives for {@code /vadmin features}; {@code ref} makes a language ref of a key (FeatureLabelsTest runs this). */
+    static void declareSwitches(Vystorm.vystorm_core._uiMethods.settings.ConfigEditorInterface config, org.bukkit.plugin.Plugin plugin,
+                                java.util.function.Function<String, String> ref) {
         for (Feature feature : Feature.values()) {
-            String description = plugin.texts() == null ? null : plugin.texts().ref(feature.description());
-            config.feature(plugin, feature.path, null, description);
+            String description = ref == null ? null : ref.apply(feature.description());
+            // A readable name instead of the key path ("Replace natural › Diamond") in /vadmin features (1.22.1).
+            String label = ref == null ? null : ref.apply(feature.label());
+            config.feature(plugin, feature.path, label, description);
             if (feature.needsRestart())
                 config.activation(plugin, feature.path, Vystorm.vystorm_core._uiMethods.settings.SettingPolicy.Activation.RESTART);
         }

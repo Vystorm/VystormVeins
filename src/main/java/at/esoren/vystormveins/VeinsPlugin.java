@@ -40,7 +40,8 @@ public final class VeinsPlugin extends JavaPlugin implements Listener, TabExecut
     boolean off(CommandSender sender, Feature feature) {
         if (on(feature)) return false;
         Feature.Switches current = switches;
-        if (feature.needs != null && current != null && !current.off().contains(feature)) say(sender, "feature-needs", feature.needs.path);
+        if (feature.needs != null && current != null && !current.off().contains(feature))
+            say(sender, "feature-needs", feature.needs.path, texts == null ? feature.needs.path : texts.word(sender, feature.needs.label()));
         else say(sender, "feature-off");
         return true;
     }
@@ -101,7 +102,8 @@ public final class VeinsPlugin extends JavaPlugin implements Listener, TabExecut
             reloadConfig();
             miningSafety = MiningSafety.Options.read(config);
         } catch (Exception invalid) {
-            getLogger().severe("Invalid mining-safety config: " + invalid.getMessage());
+            // the file is not changed; ore generation stays off rather than running with settings the admin did not write
+            getLogger().severe("config.yml could not be loaded (" + reason(invalid) + "). The file was not changed; fix it and restart.");
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
@@ -638,7 +640,7 @@ public final class VeinsPlugin extends JavaPlugin implements Listener, TabExecut
                 nextSafety = MiningSafety.Options.read(next);
                 nextSwitches = Feature.Switches.read(next);
             } catch (Exception invalid) {
-                getLogger().warning("Reload rejected, previous settings stay active: " + reason(invalid));
+                getLogger().severe("config.yml not reloaded (the file was not changed), previous settings stay active: " + reason(invalid));
                 say(sender, "reload-failed", reason(invalid));
                 return;
             }
@@ -734,6 +736,8 @@ public final class VeinsPlugin extends JavaPlugin implements Listener, TabExecut
 
     /** Short, single-line reason for a rejected reload, safe to show in chat. */
     static String reason(Throwable failure) {
+        // a YAML error: line and column of the problem (SnakeYAML's first line names only what it was parsing)
+        if (failure instanceof org.bukkit.configuration.InvalidConfigurationException) return YamlCheck.describe(failure);
         String message = failure.getMessage();
         if (message == null || message.isBlank()) return failure.getClass().getSimpleName();
         String line = message.strip().lines().findFirst().orElse(message).strip();
