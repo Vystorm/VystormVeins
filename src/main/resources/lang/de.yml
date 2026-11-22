@@ -198,6 +198,7 @@ switch-names:
   deep-veins: "Tiefenadern"
   regrowth: "Nachwachsende Adern"
   journal: "Bergbaujournal"
+  rankings: "Ranglisten"
   tutorial: "Tutorial"
 switches:
   generation: "Erzadern in neuen Chunks (die Erzeugung selbst)"
@@ -221,6 +222,7 @@ switches:
   deep-veins: "Tiefenadern, die mehrere Bergleute brauchen"
   regrowth: "Nachwachsende Adern (braucht Vystorm Core)"
   journal: "Bergbaujournal"
+  rankings: "Rangliste veins:mined für Tafeln und Platzhalter (braucht Vystorm Core 0.67.0)"
   tutorial: "Tutorial im Hauptmenü (braucht einen Neustart)"
 placeholder:
   journal_total: "Alle Erzfunde des Spielers"
@@ -233,3 +235,7 @@ placeholder:
   claim_blocks_left: "Restliche Blöcke im Schürfrecht des Spielers"
   veins_tracked: "Erfasste nachwachsende Adern"
   veins_renewable: "Erfasste Adern, die noch nachwachsen können"
+rankings:
+  mined:
+    label: "Erzschürfer"
+    description: "Abgebaute Erzblöcke eines Spielers, wie das Bergbaujournal sie zählt"

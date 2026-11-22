@@ -85,6 +85,59 @@ final class CoreLink {
         return true;
     }
 
+    // ---- ranking veins:mined (1.23.0, Core 0.67.0) ----
+
+    /** Whether the installed Core has rankings as placeholders (Core 0.67.0, capability placeholder-rankings). */
+    static boolean hasRankings() { return CoreApi.has("placeholder-rankings"); }
+
+    /**
+     * The copy of the journal totals for the ranking, from {@code rankings.json} (Core's versioned store and atomic
+     * files, as regrowth.json); written by a minute timer when something changed. A malformed file throws and is left
+     * as it is.
+     */
+    MinedTotals openTotals(VeinsPlugin plugin) {
+        java.nio.file.Path path = plugin.getDataFolder().toPath().resolve("rankings.json");
+        Vystorm.vystorm_core._coreMethods.dataStorage.AtomicFilesInterface files = core.data().files();
+        Vystorm.vystorm_core.storage.VersionedStore<MinedTotals.State> store = new Vystorm.vystorm_core.storage.VersionedStore<>(
+                new Vystorm.vystorm_core.storage.VersionedStore.Backend() {
+                    public String read() {
+                        try { return java.nio.file.Files.exists(path) ? java.nio.file.Files.readString(path) : null; }
+                        catch (java.io.IOException e) { throw new java.io.UncheckedIOException(e); }
+                    }
+                    public void write(String text) {
+                        try { files.write(path, text.getBytes(java.nio.charset.StandardCharsets.UTF_8)); }
+                        catch (java.io.IOException e) { throw new java.io.UncheckedIOException(e); }
+                    }
+                }, MinedTotals.State.class, 1, java.util.Map.of(), MinedTotals.State::new, null);
+        MinedTotals totals = MinedTotals.of(store.load(), store::save);
+        core.tasks().of(plugin, "rankings").timer(1200, 1200, () -> {
+            try { totals.saveIfDirty(); }
+            catch (RuntimeException failure) { plugin.getLogger().warning("rankings.json could not be saved: " + failure); }
+        });
+        return totals;
+    }
+
+    /** Declares or removes veins:mined; returns the refusal, null when it worked or Core has no rankings. */
+    Throwable applyRankings(VeinsPlugin plugin, boolean on, java.util.function.Supplier<MinedTotals> totals) {
+        java.util.function.UnaryOperator<String> ref = key -> plugin.texts() == null ? key : plugin.texts().ref(key);
+        return rankings(hasRankings(), () -> VeinsRankings.apply(plugin, core.placeholders(), on, totals, ref));
+    }
+
+    /**
+     * Runs {@code declare} (which declares or removes the ranking) only when Core has rankings, so the class naming
+     * Core's ranking types is only loaded after this check. Returns the refusal, null when it worked or there was
+     * nothing to do. No Core placeholder type in this signature: CoreLink also loads on Core 0.64.0.
+     */
+    static Throwable rankings(boolean coreHasRankings, Runnable declare) {
+        if (!coreHasRankings) return null;
+        try {
+            declare.run();
+            return null;
+        } catch (RuntimeException | LinkageError refused) {
+            return refused;
+        }
+    }
+
     /** Every switch in /vadmin features with its one-line description; keys not named enabled are declared. */
     void declareSwitches(VeinsPlugin plugin) {
         VeinsTexts texts = plugin.texts();

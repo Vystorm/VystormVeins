@@ -32,6 +32,12 @@ final class MiningJournal {
         if (stored != null) for (int i = 0; i < Math.min(stored.length, result.length); i++) result[i] = Math.max(0, stored[i]);
         return result;
     }
+    /** All ore blocks in the journal (saturating). */
+    static long total(long[] counts) {
+        long total = 0;
+        for (long value : counts) total = value > Long.MAX_VALUE - total ? Long.MAX_VALUE : total + Math.max(0, value);
+        return total;
+    }
     static int tier(long count) {
         int level = 0;
         for (long goal : GOALS) if (count >= goal) level++;
@@ -130,6 +136,7 @@ final class MiningJournal {
         int beforeCollection = collectionTier(discovered(values));
         values[index] = before == Long.MAX_VALUE ? before : before + 1;
         player.getPersistentDataContainer().set(COUNTS, PersistentDataType.LONG_ARRAY, values);
+        plugin.journalChanged(player, values);
         if (tier(values[index]) > tier(before)) plugin.say(player, "journal-unlocked", plugin.oreName(player, family), values[index], tier(values[index]));
         if (collectionTier(discovered(values)) > beforeCollection) plugin.say(player, "journal-collection", discovered(values), FAMILIES.size());
     }

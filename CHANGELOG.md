@@ -1,3 +1,10 @@
+## 1.23.0 — 2026-11-22
+
+- New ranking `veins:mined`: the players who mined the most ore blocks, as the mining journal (`/veinjournal`) counts them. Vystorm Boards shows it on a board with `{type: top, source: "veins:mined", rows: 10}`, and the same values are placeholders, for example `%vystorm_veins_top_mined_1_name%` and `%vystorm_veins_rank_mined%`. Only names and numbers are shown, never positions.
+- The journal is stored on the player, so it cannot be read for players who are offline. The plugin now keeps a copy per player (UUID, last known name, total) in the new file `rankings.json`, written at most once a minute and when the server stops. Counting into it starts with this update: each player's earlier journal is copied at their next join, so offline players appear once they have joined again. Older versions do not read the file and keep working.
+- Showing the ranking on a board needs Vystorm Core 0.67.0 or newer and Vystorm Boards 1.21.0 or newer. Vystorm Core stays optional: without Core, or with a Core older than 0.67.0, nothing is offered, `rankings.json` is never written, and everything else works as before. The Core features still need Vystorm Core 0.64.0 or newer, as before.
+- New switch `rankings.enabled`, on by default; it is added to an existing `config.yml` with its comment and listed in `/vadmin features` as "Rankings" in seven languages. Off, or with `mining-journal.enabled` off, the ranking is not offered; `/vveins reload` applies it without a restart.
+
 ## 1.22.2 — 2026-11-20
 
 - `/vveins status` shows the regrowth limit next to the count: "60000 of at most 100000 original blocks" (`regrowth.max-tracked-blocks`). Exhausted veins keep their place, so the count only grows; raise the value in `config.yml` (up to 1,000,000) before it is full.

@@ -8,6 +8,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.*;
 import org.bukkit.event.world.WorldInitEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.generator.*;
@@ -181,6 +182,51 @@ public final class VeinsPlugin extends JavaPlugin implements Listener, TabExecut
         }
         getServer().getWorlds().forEach(this::attach);
         configureRegrowth();
+        startRankings();
+    }
+
+    // ---- ranking veins:mined (1.23.0, Core 0.67.0) ----
+
+    /** The journal totals for the ranking; null without Core, with a Core older than 0.67.0 or an unreadable rankings.json. */
+    private MinedTotals minedTotals;
+    private boolean rankingsRefused;
+
+    /** With a Core that has rankings: reads rankings.json, notes the online players and offers the ranking. */
+    private void startRankings() {
+        if (core == null) return;   // without Core nothing of the ranking is loaded or written
+        try {
+            if (!CoreLink.hasRankings()) return;
+            minedTotals = core.openTotals(this);
+        } catch (RuntimeException | LinkageError unavailable) {
+            getLogger().warning("Rankings not offered; rankings.json was left as it is: " + unavailable);
+            return;
+        }
+        for (Player player : getServer().getOnlinePlayers()) journalChanged(player, journalCounts(player));
+        applyRankings();
+    }
+
+    /** Offers or removes veins:mined after the switches were read (start and /vveins reload). */
+    private void applyRankings() {
+        if (core == null || minedTotals == null) return;
+        Throwable refused = core.applyRankings(this, on(Feature.RANKINGS) && on(Feature.JOURNAL), () -> minedTotals);
+        if (refused != null && !rankingsRefused) {
+            rankingsRefused = true;
+            getLogger().warning("Rankings not offered: " + refused);
+        }
+    }
+
+    /** The journal of {@code player} changed (or the player joined): the ranking copy follows. Does nothing without Core. */
+    void journalChanged(Player player, long[] counts) {
+        noteJournal(minedTotals, player.getUniqueId(), player.getName(), counts);
+    }
+
+    /** Copies a journal total into {@code totals}; nothing when there are none (no Core, older Core). */
+    static void noteJournal(MinedTotals totals, UUID player, String name, long[] counts) {
+        if (totals != null && counts != null) totals.update(player, name, MiningJournal.total(counts));
+    }
+
+    @EventHandler public void join(PlayerJoinEvent event) {
+        if (minedTotals != null) journalChanged(event.getPlayer(), journalCounts(event.getPlayer()));
     }
 
     /** Core's command trees (with Core); the subcommands of switched-off features are hidden. */
@@ -526,6 +572,11 @@ public final class VeinsPlugin extends JavaPlugin implements Listener, TabExecut
             }
             regrowth = null;
         }
+        if (minedTotals != null) {
+            try { minedTotals.saveIfDirty(); }
+            catch (RuntimeException failure) { getLogger().severe("Could not save rankings.json: " + failure); }
+            minedTotals = null;
+        }
         // Paper may iterate the populator list during shutdown: do not edit it while stopping.
         getServer().getWorlds().forEach(w -> w.getPopulators().remove(populator));
         previews.clear();
@@ -658,6 +709,7 @@ public final class VeinsPlugin extends JavaPlugin implements Listener, TabExecut
             if (deepVeins != null) deepVeins.apply();
             if (texts != null) texts.reload();
             applySwitches();
+            applyRankings();   // rankings.enabled and mining-journal.enabled apply without a restart
             say(sender, "reloaded");
         });
     }

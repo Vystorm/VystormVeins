@@ -220,6 +220,13 @@ chunk-preview:
 mining-journal:
   enabled: true
 
+# Ranking for Vystorm Boards and placeholders (needs Vystorm Core 0.67.0 or newer): veins:mined, the ore blocks a
+# player mined as the mining journal counts them. A copy per player is kept in rankings.json (players appear after
+# their next join or ore). Only names and numbers are shown, never positions. Off, or mining-journal.enabled off: the
+# ranking is not offered. Without Core or with an older Core nothing is offered or written.
+rankings:
+  enabled: true
+
 # Tutorial in the Vystorm Core main menu (/vmenu -> Tutorials; needs Core). Needs a server restart to apply.
 tutorial:
   enabled: true

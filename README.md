@@ -37,13 +37,33 @@ Every feature has an on/off switch in `config.yml`. Without Core, set them there
 
 - Generation: `generation.enabled` (off: new chunks keep vanilla ore, nothing is removed, `/vveins preview` and `apply` are off; existing veins stay), the eleven `replace_natural.<ore>` keys and `chunk-preview.enabled`, which all need it.
 - Mining: `prospecting.enabled`, `vein-mining.enabled`, `mining-safety.enabled`, `claims.enabled`, `deep-veins.enabled`, `mining-journal.enabled`.
-- With Core: `ore-map.enabled`, `regrowth.enabled`, `tutorial.enabled`.
+- With Core: `ore-map.enabled`, `regrowth.enabled`, `rankings.enabled` (the ranking below, Core 0.67.0), `tutorial.enabled`.
 
 The presets and `/vveins status` and `reload` have no switch: the presets are files you copy yourself, and status and reload are needed to see and apply the switches.
 
 ## Placeholders (with Core 0.65.0)
 
 Namespace `veins`, listed by `/vadmin placeholders veins`: `%vystorm_veins_journal_total%`, `journal_discovered`, `journal_families`, `journal_collection_tier`, `journal_<family>` and `journal_<family>_tier` (coal, iron, copper, gold, redstone, lapis, diamond, emerald, nether_quartz, ancient_debris), `claim_family`, `claim_blocks_left`, `veins_tracked`, `veins_renewable`. Short form in Vystorm texts: `{veins:journal_diamond}`.
+
+## Rankings (1.23.0, with Core 0.67.0)
+
+With Vystorm Core 0.67.0 or newer the plugin offers one ranking in its namespace `veins` (only names and numbers, never positions):
+
+| Source id | Counts |
+| --- | --- |
+| `veins:mined` | Ore blocks a player mined, as the mining journal counts them (needs `mining-journal.enabled`) |
+
+The journal lives on the player, so the plugin keeps a copy per player in `rankings.json` (UUID, last known name, total), written at most once a minute and when the server stops. A player's earlier journal comes in at their next join, so offline players appear once they have joined after the update. Without Core, or with an older Core, nothing is offered and `rankings.json` is never written.
+
+Vystorm Boards 1.21.0 or newer shows it on a board; put a text element above as heading:
+
+```yaml
+elements:
+  - {type: text, text: "<aqua>Top miners", x: 16, y: 12, size: 22}
+  - {type: top, source: "veins:mined", x: 16, y: 48, width: 480, rows: 10, highlight: true}
+```
+
+Placeholders, with `<n>` = 1 to 100: `%vystorm_veins_top_mined_<n>_name%`, `%vystorm_veins_top_mined_<n>_value%` (formatted in the viewer's language; `_raw` for the plain number, `_uuid` for the UUID), `%vystorm_veins_rank_mined%` and `%vystorm_veins_value_mined%` for the viewer (`-` if none). Short form in Vystorm texts: `{veins:top_mined:1:name}`, `{veins:rank_mined}`. `/vadmin placeholders rankings` lists it. Switch: `rankings.enabled`.
 
 ## Build and reference
 

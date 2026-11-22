@@ -40,11 +40,13 @@ enum Feature {
     /** Off by default; needs Vystorm Core. */
     REGROWTH("regrowth.enabled", false, null),
     JOURNAL("mining-journal.enabled", true, null),
+    /** The ranking veins:mined in Core's placeholders (1.23.0); needs Vystorm Core 0.67.0, otherwise nothing is offered. */
+    RANKINGS("rankings.enabled", true, null),
     /** Read once when the plugin starts; needs Vystorm Core. */
     TUTORIAL("tutorial.enabled", true, null);
 
     /** Keys that did not exist before 1.22.0; the plugin adds them to an existing config.yml with their comments. */
-    static final List<Feature> NEW_KEYS = List.of(GENERATION, CHUNK_PREVIEW, JOURNAL, TUTORIAL);
+    static final List<Feature> NEW_KEYS = List.of(GENERATION, CHUNK_PREVIEW, JOURNAL, RANKINGS, TUTORIAL);
 
     final String path;
     /** The value a missing key has (today's behaviour). */

@@ -198,6 +198,7 @@ switch-names:
   deep-veins: "深层矿脉"
   regrowth: "再生矿脉"
   journal: "采矿日志"
+  rankings: "排名"
   tutorial: "教程"
 switches:
   generation: "新区块中的矿脉（生成本身）"
@@ -221,6 +222,7 @@ switches:
   deep-veins: "需要多名矿工的深层矿脉"
   regrowth: "会再生的矿脉（需要 Vystorm Core）"
   journal: "采矿日志"
+  rankings: "用于展板和占位符的排名 veins:mined（需要 Vystorm Core 0.67.0）"
   tutorial: "主菜单中的教程（需要重启）"
 placeholder:
   journal_total: "玩家的全部矿石发现"
@@ -233,3 +235,7 @@ placeholder:
   claim_blocks_left: "玩家采矿权中剩余的方块数"
   veins_tracked: "被记录的再生矿脉"
   veins_renewable: "仍可再生的已记录矿脉"
+rankings:
+  mined:
+    label: "矿工"
+    description: "玩家挖掘的矿石方块数，按采矿日志计数"

@@ -198,6 +198,7 @@ switch-names:
   deep-veins: "Deep veins"
   regrowth: "Regrowing veins"
   journal: "Mining journal"
+  rankings: "Rankings"
   tutorial: "Tutorial"
 switches:
   generation: "Ore veins in new chunks (the generation itself)"
@@ -221,6 +222,7 @@ switches:
   deep-veins: "Deep veins that need several miners"
   regrowth: "Regrowing veins (needs Vystorm Core)"
   journal: "Mining journal"
+  rankings: "Ranking veins:mined for boards and placeholders (needs Vystorm Core 0.67.0)"
   tutorial: "Tutorial in the main menu (needs a restart)"
 placeholder:
   journal_total: "All ore discoveries of the player"
@@ -233,3 +235,7 @@ placeholder:
   claim_blocks_left: "Blocks left in the player's mining claim"
   veins_tracked: "Regrowing veins that are tracked"
   veins_renewable: "Tracked veins that can still grow back"
+rankings:
+  mined:
+    label: "Ore miners"
+    description: "Ore blocks a player mined, as the mining journal counts them"

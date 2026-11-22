@@ -197,6 +197,7 @@ switch-names:
   deep-veins: "Vene profonde"
   regrowth: "Vene che ricrescono"
   journal: "Diario di scavo"
+  rankings: "Classifiche"
   tutorial: "Tutorial"
 switches:
   generation: "Vene di minerale nei nuovi chunk (la generazione stessa)"
@@ -220,6 +221,7 @@ switches:
   deep-veins: "Vene profonde che richiedono più minatori"
   regrowth: "Vene che ricrescono (serve Vystorm Core)"
   journal: "Diario di miniera"
+  rankings: "Classifica veins:mined per bacheche e placeholder (richiede Vystorm Core 0.67.0)"
   tutorial: "Tutorial nel menu principale (serve un riavvio)"
 placeholder:
   journal_total: "Tutte le scoperte di minerale del giocatore"
@@ -232,3 +234,7 @@ placeholder:
   claim_blocks_left: "Blocchi rimasti nella concessione del giocatore"
   veins_tracked: "Vene che ricrescono registrate"
   veins_renewable: "Vene registrate che possono ancora ricrescere"
+rankings:
+  mined:
+    label: "Minatori di minerali"
+    description: "Blocchi di minerale estratti da un giocatore, contati dal diario minerario"

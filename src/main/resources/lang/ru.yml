@@ -196,6 +196,7 @@ switch-names:
   deep-veins: "Глубинные жилы"
   regrowth: "Отрастающие жилы"
   journal: "Журнал добычи"
+  rankings: "Рейтинги"
   tutorial: "Обучение"
 switches:
   generation: "Рудные жилы в новых чанках (сама генерация)"
@@ -219,6 +220,7 @@ switches:
   deep-veins: "Глубинные жилы, которым нужны несколько шахтёров"
   regrowth: "Отрастающие жилы (нужен Vystorm Core)"
   journal: "Журнал добычи"
+  rankings: "Рейтинг veins:mined для табло и плейсхолдеров (нужен Vystorm Core 0.67.0)"
   tutorial: "Обучение в главном меню (нужен перезапуск)"
 placeholder:
   journal_total: "Все находки руды игрока"
@@ -231,3 +233,7 @@ placeholder:
   claim_blocks_left: "Оставшиеся блоки в праве на добычу игрока"
   veins_tracked: "Отслеживаемые отрастающие жилы"
   veins_renewable: "Отслеживаемые жилы, которые ещё могут отрасти"
+rankings:
+  mined:
+    label: "Добытчики руды"
+    description: "Блоки руды, добытые игроком, по подсчёту дневника шахтёра"

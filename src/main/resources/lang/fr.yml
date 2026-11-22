@@ -196,6 +196,7 @@ switch-names:
   deep-veins: "Filons profonds"
   regrowth: "Filons qui repoussent"
   journal: "Journal de minage"
+  rankings: "Classements"
   tutorial: "Tutoriel"
 switches:
   generation: "Filons dans les nouveaux chunks (la génération elle-même)"
@@ -219,6 +220,7 @@ switches:
   deep-veins: "Filons profonds qui demandent plusieurs mineurs"
   regrowth: "Filons qui repoussent (nécessite Vystorm Core)"
   journal: "Journal de minage"
+  rankings: "Classement veins:mined pour les panneaux et les placeholders (nécessite Vystorm Core 0.67.0)"
   tutorial: "Tutoriel dans le menu principal (redémarrage nécessaire)"
 placeholder:
   journal_total: "Toutes les découvertes de minerai du joueur"
@@ -231,3 +233,7 @@ placeholder:
   claim_blocks_left: "Blocs restants dans la concession du joueur"
   veins_tracked: "Filons qui repoussent suivis"
   veins_renewable: "Filons suivis qui peuvent encore repousser"
+rankings:
+  mined:
+    label: "Mineurs de minerai"
+    description: "Blocs de minerai qu'un joueur a extraits, comptés par le journal minier"

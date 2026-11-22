@@ -196,6 +196,7 @@ switch-names:
   deep-veins: "Veios profundos"
   regrowth: "Veios que voltam a crescer"
   journal: "Diário de mineração"
+  rankings: "Rankings"
   tutorial: "Tutorial"
 switches:
   generation: "Veios de minério em chunks novos (a geração em si)"
@@ -219,6 +220,7 @@ switches:
   deep-veins: "Veios profundos que exigem vários mineiros"
   regrowth: "Veios que voltam a crescer (precisa do Vystorm Core)"
   journal: "Diário de mineração"
+  rankings: "Ranking veins:mined para painéis e placeholders (requer Vystorm Core 0.67.0)"
   tutorial: "Tutorial no menu principal (precisa reiniciar)"
 placeholder:
   journal_total: "Todas as descobertas de minério do jogador"
@@ -231,3 +233,7 @@ placeholder:
   claim_blocks_left: "Blocos restantes na concessão do jogador"
   veins_tracked: "Veios que voltam a crescer registrados"
   veins_renewable: "Veios registrados que ainda podem voltar a crescer"
+rankings:
+  mined:
+    label: "Mineradores"
+    description: "Blocos de minério que um jogador minerou, contados pelo diário de mineração"
