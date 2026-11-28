@@ -12,7 +12,11 @@ final class OreMapPanel implements OreMapMenu.Screen {
     record Row(String id, Component title, Component subtitle, Material icon, boolean loaded,
                Map<String, Integer> ores) {}
     record Overview(List<Row> rows, Map<String, String> families, String filter, String selected,
-                    int fromY, int toY, long cooldownSeconds) {}
+                    int fromY, int toY, long cooldownSeconds, MyMining mine) {
+        Overview(List<Row> rows, Map<String, String> families, String filter, String selected, int fromY, int toY, long cooldownSeconds) {
+            this(rows, families, filter, selected, fromY, toY, cooldownSeconds, null);
+        }
+    }
     @FunctionalInterface interface Texts { Component text(String key, Object... args); }
     interface Actions {
         Result check(Player player);
@@ -20,6 +24,10 @@ final class OreMapPanel implements OreMapMenu.Screen {
         Result filter(Player player, String family);
         Result describe(Player player, String id);
         void rescan(Player player);
+        /** "My mining" (1.24.0): the vein mining switch, as {@code /veinmine}. */
+        Result veinMining(Player player, boolean on);
+        /** "Release my claim" (1.24.0), as {@code /veinclaim release}. */
+        Result release(Player player);
     }
 
     private final VeinsPlugin plugin;
@@ -83,7 +91,7 @@ final class OreMapPanel implements OreMapMenu.Screen {
         Map<String, String> families = new LinkedHashMap<>();
         OreMap.families(view.tiles).forEach(family -> families.put(family, plugin.oreName(player, family)));
         return new Overview(rows, families, view.filter, selected.get(player.getUniqueId()), view.fromY, view.toY,
-                plugin.oreMap().cooldownMillis() / 1000);
+                plugin.oreMap().cooldownMillis() / 1000, MyMining.of(plugin, player));
     }
 
     private Result access(Player player) {
@@ -129,7 +137,59 @@ final class OreMapPanel implements OreMapMenu.Screen {
                 return Result.ok();
             }
             public void rescan(Player player) { menu.open(player); }
+            public Result veinMining(Player player, boolean on) {
+                Result checked = check(player);
+                if (!checked.success()) return checked;
+                MyMining.setVeinMining(plugin, player, on);
+                return Result.ok();
+            }
+            public Result release(Player player) {
+                Result checked = check(player);
+                if (!checked.success()) return checked;
+                MyMining.release(plugin, player);
+                return Result.ok();
+            }
         };
+    }
+
+    /** The "My mining" tab (1.24.0). */
+    static Ui.Box mine(MyMining m, Texts texts, Actions actions) {
+        Ui.Box box = Ui.col().gap(6).id("my-mining");
+        if (m.veinMining() != null) {
+            box.child(Ui.toggle("vein-mining", texts.text("mine-vein")).value(m.veinMining()).description(texts.text("mine-vein-text"))
+                    .onChange((a, on) -> {
+                        Result result = actions.veinMining(a.player(), on);
+                        if (result.success()) a.refresh();
+                        return result;
+                    }));
+            if (m.serverOff()) box.child(Ui.text(texts.text("veinmine-server-off")).id("vein-mining-off").style(Ui.TextStyle.MUTED));
+        }
+        if (m.journal() != null) {
+            MyMining.Journal j = m.journal();
+            box.child(Ui.heading(texts.text("mine-journal")).level(3));
+            box.child(Ui.text(texts.text("journal-header", j.total(), j.discovered(), j.families())).id("journal-total"));
+            Ui.Kv rows = Ui.kv().id("journal");
+            for (MyMining.Line line : j.lines())
+                rows.row(line.ore(), texts.text("mine-journal-row", line.count(), line.tier(), j.goals(),
+                        line.next() == null ? texts.text("journal-complete") : line.next()));
+            box.child(rows);
+            box.child(Ui.text(texts.text("journal-goals", j.collectionTier())).style(Ui.TextStyle.MUTED));
+        }
+        if (m.claims()) {
+            box.child(Ui.heading(texts.text("mine-claim")).level(3));
+            box.child(Ui.text(m.claim() == null ? texts.text("claim-none")
+                    : texts.text("mine-claim-status", m.claim().blocks(), m.claim().ore(), m.claim().minutes())).id("claim-status"));
+            box.child(Ui.button("release-claim").label(texts.text("mine-release")).icon(Ui.item(Material.IRON_SHOVEL)).danger()
+                    .disabled(m.claim() == null)
+                    .confirm(texts.text("mine-release"), m.claim() == null ? texts.text("claim-none")
+                            : texts.text("mine-release-confirm", m.claim().blocks(), m.claim().ore()))
+                    .onClick(a -> {
+                        Result result = actions.release(a.player());
+                        if (result.success()) a.refresh();
+                        return result;
+                    }));
+        }
+        return box;
     }
 
     static Panel panel(Overview data, Texts texts, Actions actions) {
@@ -164,10 +224,13 @@ final class OreMapPanel implements OreMapMenu.Screen {
                     return result;
                 });
         data.families().forEach((id, name) -> filter.option(id, name, Ui.item(OreMap.icon(id))));
+        Ui.Box map = Ui.col().gap(6).children(Ui.text(texts.text("map-info-band", data.fromY(), data.toY())), filter,
+                Ui.row().gap(8).children(Ui.col().grow(2).scrollY(300).child(list), detail));
+        Ui.Element<?> body = data.mine() == null || data.mine().empty() ? map
+                : Ui.tabs("views").tab("map", texts.text("mine-tab-map"), map).tab("mine", texts.text("mine-tab"), mine(data.mine(), texts, actions));
         return Panel.page(texts.text("map-menu-title")).subtitle(texts.text("map-panel-subtitle"))
                 .icon(Ui.item(Material.FILLED_MAP)).size(Panel.Size.LARGE)
-                .children(Ui.text(texts.text("map-info-band", data.fromY(), data.toY())), filter,
-                        Ui.row().gap(8).children(Ui.col().grow(2).scrollY(300).child(list), detail))
+                .children(body)
                 .footer(Ui.button("refresh").label(texts.text("map-refresh")).icon(Ui.item(Material.SPYGLASS)).primary()
                                 .tooltip(texts.text("map-refresh-hint", data.cooldownSeconds())).onClick(a -> {
                                     Result checked = actions.check(a.player());

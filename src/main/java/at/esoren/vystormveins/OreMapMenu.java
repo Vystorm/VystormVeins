@@ -20,6 +20,8 @@ import org.bukkit.inventory.ItemStack;
  */
 final class OreMapMenu {
     private static final int SIZE = 54, INFO = 45, REFRESH = 47, FILTER = 49, CLOSE = 53;
+    /** "My mining" (1.24.0): vein mining switch, journal, release the claim. */
+    static final int VEIN = 50, JOURNAL = 51, CLAIM = 52;
     private final VeinsPlugin plugin;
     private final API core;
     private final Map<UUID, Long> cooldowns = new HashMap<>();
@@ -37,6 +39,8 @@ final class OreMapMenu {
     static final class View {
         final List<OreMap.Tile> tiles; final UUID world; final int centreX, centreZ, fromY, toY;
         String filter;
+        /** The chest's release button was clicked once; the second click releases. */
+        boolean releaseArmed;
         View(List<OreMap.Tile> tiles, UUID world, int centreX, int centreZ, int fromY, int toY) {
             this.tiles = tiles; this.world = world; this.centreX = centreX; this.centreZ = centreZ; this.fromY = fromY; this.toY = toY;
         }
@@ -150,6 +154,18 @@ final class OreMapMenu {
             render(player, inventory, view);
             return;
         }
+        if (slot == VEIN || slot == JOURNAL || slot == CLAIM) {
+            MyMining mine = MyMining.of(plugin, player);
+            if (slot == VEIN && mine.veinMining() != null) MyMining.setVeinMining(plugin, player, !mine.veinMining());
+            if (slot == CLAIM && mine.claims() && mine.claim() != null) {
+                if (view.releaseArmed) { view.releaseArmed = false; MyMining.release(plugin, player); }
+                else view.releaseArmed = true;
+            }
+            if (slot == JOURNAL && mine.journal() != null) plugin.journal(player);
+            render(player, inventory, view);
+            return;
+        }
+        view.releaseArmed = false;
         describe(player, view, slot);
     }
 
@@ -183,6 +199,41 @@ final class OreMapMenu {
         inventory.setItem(FILTER, item(view.filter == null ? Material.HOPPER : OreMap.icon(view.filter),
                 plugin.texts().component(player, "map-filter", filter), List.of(plugin.texts().component(player, "map-filter-hint"))));
         inventory.setItem(CLOSE, item(Material.BARRIER, plugin.texts().component(player, "map-close"), List.of()));
+        mine(player, inventory, view, MyMining.of(plugin, player));
+    }
+
+    /** The "My mining" buttons of the chest (1.24.0); a part the player may not use stays empty. */
+    private void mine(Player player, Inventory inventory, View view, MyMining mine) {
+        var t = plugin.texts();
+        inventory.setItem(VEIN, null);
+        inventory.setItem(JOURNAL, null);
+        inventory.setItem(CLAIM, null);
+        if (mine.veinMining() != null) {
+            List<Component> lore = new ArrayList<>();
+            lore.add(t.component(player, "mine-vein-text"));
+            if (mine.serverOff()) lore.add(t.component(player, "veinmine-server-off"));
+            lore.add(t.component(player, "mine-click-switch"));
+            inventory.setItem(VEIN, item(mine.veinMining() ? Material.DIAMOND_PICKAXE : Material.WOODEN_PICKAXE,
+                    t.component(player, mine.veinMining() ? "mine-vein-on" : "mine-vein-off"), lore));
+        }
+        if (mine.journal() != null) {
+            MyMining.Journal j = mine.journal();
+            List<Component> lore = new ArrayList<>();
+            for (MyMining.Line line : j.lines())
+                lore.add(t.component(player, "journal-line", line.ore(), line.count(), line.tier(), j.goals(),
+                        line.next() == null ? plugin.word(player, "journal-complete") : line.next()));
+            lore.add(t.component(player, "journal-goals", j.collectionTier()));
+            inventory.setItem(JOURNAL, item(Material.WRITABLE_BOOK, t.component(player, "journal-header", j.total(), j.discovered(), j.families()), lore));
+        }
+        if (mine.claims()) {
+            List<Component> lore = new ArrayList<>();
+            if (mine.claim() == null) lore.add(t.component(player, "claim-none"));
+            else {
+                lore.add(t.component(player, "mine-claim-status", mine.claim().blocks(), mine.claim().ore(), mine.claim().minutes()));
+                lore.add(t.component(player, view.releaseArmed ? "mine-release-again" : "mine-release-click"));
+            }
+            inventory.setItem(CLAIM, item(view.releaseArmed ? Material.REDSTONE : Material.IRON_SHOVEL, t.component(player, "mine-claim"), lore));
+        }
     }
 
     private ItemStack tile(Player player, View view, int slot) {

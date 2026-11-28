@@ -1,3 +1,10 @@
+## 1.24.0 — 2026-11-27
+
+- The ore map (`/veinmap`, or Ore map in `/vmenu`) has a second tab **My mining**: a switch for your own vein mining, your mining journal with every ore family, its tier and the next goal, and your mining claim with a **Release claim** button that asks first. Until now these were only `/veinmine`, `/veinjournal` and `/veinclaim release`. The first tab is the ore map as before.
+- In the chest ore map (Spigot, Paper 1.20.6, screens off) the same parts are three buttons in the bottom row: vein mining on or off, the journal (its lines also as a chat message on click) and the claim, which is released on a second click.
+- Each part shows only to players with its permission and while its feature is on; a note says so when vein mining is switched off on the server (your choice is still saved). The buttons run the same code as the commands, which all stay.
+- Vystorm Core is still optional: the ore map and this tab need Core, everything else runs without it as before. Texts in all seven languages.
+
 ## 1.23.0 — 2026-11-22
 
 - New ranking `veins:mined`: the players who mined the most ore blocks, as the mining journal (`/veinjournal`) counts them. Vystorm Boards shows it on a board with `{type: top, source: "veins:mined", rows: 10}`, and the same values are placeholders, for example `%vystorm_veins_top_mined_1_name%` and `%vystorm_veins_rank_mined%`. Only names and numbers are shown, never positions.

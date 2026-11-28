@@ -21,7 +21,7 @@ Only the first confirmed successful survival harvest at a position is credited t
 - Administrator chunk preview/apply with confirmation and cancellation through `/vveins`.
 - Prospecting rod with localized direction/distance, sounds and optional trails.
 - `/veinmine` persistent personal toggle; optional sneaking vein mining honors tools, protections, regrowth seeds and configured lava/water/gravity/unloaded-chunk safety limits.
-- `/veinmap` ore-map menu through optional Core, plus bounded persistent regrowth tracking.
+- `/veinmap` ore-map menu through optional Core (since 1.24.0 with a "My mining" tab: vein mining switch, journal, release the claim), plus bounded persistent regrowth tracking.
 
 ## Installation and compatibility
 
